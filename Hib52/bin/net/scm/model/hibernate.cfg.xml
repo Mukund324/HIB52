@@ -17,6 +17,7 @@
 
 <mapping class="net.scm.model.Employee" />
 <mapping class="net.scm.model.ProductModel" />
+<mapping class="net.scm.model.VendorModel" />
 
 </session-factory>
 </hibernate-configuration>

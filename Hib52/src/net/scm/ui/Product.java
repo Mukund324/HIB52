@@ -3,6 +3,7 @@ import net.scm.model.*;
 
 import javax.swing.*;
 import java.util.List;
+import java.util.Locale;
 
 import org.hibernate.stat.spi.StatisticsImplementor;
 
@@ -13,17 +14,13 @@ import org.hibernate.SessionFactory;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+import javax.swing.table.JTableHeader;
 import javax.transaction.Transaction;
 
 import org.hibernate.Session;
@@ -40,19 +37,19 @@ public class Product extends JDialog
 	public JFrame parent1;
 	public Session session;
 
-	private JLabel lbProductName;
-	private JTextField tfProductName;
-    private JLabel lbPrice;
-    private JTextField tfPrice;
-    private JLabel lbRating;
-    private JTextField tfRating;
-    private JLabel lbMake;
-    private JTextField tfMake;
-    private JLabel lbMakeCountry;
-    private JTextField tfMakeCountry;
-    private JButton btnSave;
-    private JButton btnReset;
-    private JButton btnMenu;
+	public JLabel lbProdName;
+	public JTextField tfProdName;
+    public JLabel lbPrice;
+    public JTextField tfPrice;
+    public JLabel lbRating;
+    public JTextField tfRating;
+    public JLabel lbMake;
+    public JTextField tfMake;
+    public JLabel lbMakeCountry;
+    public JTextField tfCountry;
+    public JButton btnSave;
+    public JButton btnReset;
+    public JButton btnMenu;
 
 	public Product(JFrame parent)
 	{
@@ -64,75 +61,144 @@ public class Product extends JDialog
     public void ProductAddUI()
     {   	
 
-    	JPanel panel = new JPanel(new GridBagLayout());
-    	GridBagConstraints gs = new GridBagConstraints();
-    	gs.fill = GridBagConstraints.HORIZONTAL;
-    	
-    	lbProductName = new JLabel("Product Name ");
-        gs.gridx = 0;
-        gs.gridy = 0;
-        gs.gridwidth = 1;
-        panel.add(lbProductName, gs);
-         
-        tfProductName = new JTextField(20);
-        gs.gridx = 1;
-        gs.gridy = 0;
-        gs.gridwidth = 1;
-        panel.add(tfProductName, gs); 
+    	//Create Panel for Title 
+    	JPanel title = new JPanel();
+    	title.setBackground(Color.decode("#006666"));
+    	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+	    title.setPreferredSize(new Dimension(640,30));
+        title.setOpaque(true);
+       	//Create Panel for Menu       
+    	JPanel formpanel = new JPanel(new GridBagLayout());
+        formpanel.setPreferredSize(new Dimension(640, 400));   
+		formpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+		formpanel.setBackground(Color.white);
+		GridBagLayout gBL = new GridBagLayout();
+		gBL.columnWidths = new int[]{100, 67, 86, 86, 0};
+		gBL.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gBL.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gBL.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		
+       	//Create Panel for Bottom (Adding Buttons for Operations)               
+	    JPanel bp = new JPanel();
+        bp.setBackground(Color.decode("#87CEFA"));
+        bp.setPreferredSize(new Dimension(640, 40));  
+    	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+        bp.setOpaque(true);
         
-        lbPrice = new JLabel("Product Price ");
-        gs.gridx = 0;
-        gs.gridy = 1;
-        gs.gridwidth = 1;
-        panel.add(lbPrice, gs);
-         
-        tfPrice = new JTextField(10);
-        gs.gridx = 1;
-        gs.gridy = 1;
-        gs.gridwidth = 1;
-        panel.add(tfPrice, gs);  
-        
-        lbRating = new JLabel("Product Rating");
-        gs.gridx = 0;
-        gs.gridy = 2;
-        gs.gridwidth = 1;
-        panel.add(lbRating, gs);
-         
-        tfRating = new JTextField(50);
-        gs.gridx = 1;
-        gs.gridy = 2;
-        gs.gridwidth = 1;
-        panel.add(tfRating, gs);  
-        
-        lbMake= new JLabel("Product Make ");
-        gs.gridx = 0;
-        gs.gridy = 3;
-        gs.gridwidth = 1;
-        panel.add(lbMake, gs);
-         
-        tfMake = new JTextField(50);
-        gs.gridx = 1;
-        gs.gridy = 3;
-        gs.gridwidth = 1;
-        panel.add(tfMake, gs);
-        
-        lbMakeCountry = new JLabel("Country ");
-        gs.gridx = 0;
-        gs.gridy = 4;
-        gs.gridwidth = 1;
-        panel.add(lbMakeCountry, gs);
-         
-        tfMakeCountry = new JTextField(50);
-        gs.gridx = 1;
-        gs.gridy = 4;
-        gs.gridwidth = 1;
-        panel.add(tfMakeCountry, gs);
+    	//Adding Components for the Title Panel    
+	    JLabel ltitle = new JLabel("Vendor Management Portal");
+	    ltitle.setHorizontalAlignment(JLabel.CENTER);
+	    ltitle.setVerticalAlignment(JLabel.CENTER);
+	    ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));
+	    ltitle.setForeground(Color.WHITE);
+	    title.add(ltitle);    
+	    
+		JLabel lblProdName = new JLabel("Name");
+		lblProdName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblProdName = new GridBagConstraints();
+		gbc_lblProdName.anchor = GridBagConstraints.EAST;
+		gbc_lblProdName.insets = new Insets(10, 10, 10, 5);
+		gbc_lblProdName.gridx = 0;
+		gbc_lblProdName.gridy = 1;
+		formpanel.add(lblProdName, gbc_lblProdName);
+		
+		JTextField tfProdName = new JTextField();
+		tfProdName.setText(" ");
+		tfProdName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_prodName = new GridBagConstraints();
+		gbc_prodName.gridwidth = 2;
+		gbc_prodName.insets = new Insets(10, 10, 10, 5);
+		gbc_prodName.anchor = GridBagConstraints.NORTHWEST;
+		gbc_prodName.gridx = 1;
+		gbc_prodName.gridy = 1;
+		formpanel.add(tfProdName, gbc_prodName);
+		tfProdName.setColumns(30);
+		
+		JLabel lbPrice = new JLabel("Price ");
+		lbPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblProductPrice = new GridBagConstraints();
+		gbc_lblProductPrice.anchor = GridBagConstraints.EAST;
+		gbc_lblProductPrice.insets = new Insets(10, 10, 10, 5);
+		gbc_lblProductPrice.gridx = 0;
+		gbc_lblProductPrice.gridy = 3;
+		formpanel.add(lbPrice, gbc_lblProductPrice);
+		
+		JTextField tfPrice = new JTextField();
+		tfPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.gridwidth = 2;
+		gbc_textField.insets = new Insets(10, 10, 10, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 1;
+		gbc_textField.gridy = 3;
+		formpanel.add(tfPrice, gbc_textField);
+		tfPrice.setColumns(10);
+		
+		JLabel lbRating = new JLabel("Rating");
+		lbRating.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblProdRating = new GridBagConstraints();
+		gbc_lblProdRating.anchor = GridBagConstraints.EAST;
+		gbc_lblProdRating.insets = new Insets(10, 10, 10, 5);
+		gbc_lblProdRating.gridx = 0;
+		gbc_lblProdRating.gridy = 5;
+		formpanel.add(lbRating, gbc_lblProdRating);
+		
+		JComboBox tfRating = new JComboBox();
+		tfRating.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfRating.setModel(new DefaultComboBoxModel(new String[] {"None", "Gold", "Silver", "Bronze"}));
+		GridBagConstraints gbc_ProdRating = new GridBagConstraints();
+		gbc_ProdRating.gridwidth = 2;
+		gbc_ProdRating.insets = new Insets(10, 10, 10, 5);
+		gbc_ProdRating.fill = GridBagConstraints.HORIZONTAL;
+		gbc_ProdRating.gridx = 1;
+		gbc_ProdRating.gridy = 5;
+		formpanel.add(tfRating, gbc_ProdRating);
+		
+		JLabel lbMake = new JLabel("Make");
+		lbMake.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblProdMake = new GridBagConstraints();
+		gbc_lblProdMake.anchor = GridBagConstraints.EAST;
+		gbc_lblProdMake.insets = new Insets(10, 10, 10, 5);
+		gbc_lblProdMake.gridx = 0;
+		gbc_lblProdMake.gridy = 7;
+		formpanel.add(lbMake, gbc_lblProdMake);
+		
+		JComboBox tfMake = new JComboBox();
+		tfMake.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfMake.setModel(new DefaultComboBoxModel(new String[] {"Plastic", "Metal", "Wood", "Fibre"}));
+		GridBagConstraints gbc_ProdMakeSelect = new GridBagConstraints();
+		gbc_ProdMakeSelect.gridwidth = 2;
+		gbc_ProdMakeSelect.insets = new Insets(10, 10, 10, 5);
+		gbc_ProdMakeSelect.fill = GridBagConstraints.HORIZONTAL;
+		gbc_ProdMakeSelect.gridx = 1;
+		gbc_ProdMakeSelect.gridy = 7;
+		formpanel.add(tfMake, gbc_ProdMakeSelect);
+		
+		JLabel lbCountry = new JLabel("Country");
+		lbCountry.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblProdCountry = new GridBagConstraints();
+		gbc_lblProdCountry.anchor = GridBagConstraints.EAST;
+		gbc_lblProdCountry.insets = new Insets(10, 10, 10, 5);
+		gbc_lblProdCountry.gridx = 0;
+		gbc_lblProdCountry.gridy = 9;
+		formpanel.add(lbCountry, gbc_lblProdCountry);
+		
+	    Country[] listCountry = createCountryList();
+	   
+	    JComboBox<Country> tfCountry = new JComboBox<>(listCountry);
+	    tfCountry.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.gridwidth = 2;
+		gbc_comboBox.insets = new Insets(10, 10, 10, 5);
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.gridx = 1;
+		gbc_comboBox.gridy = 9;
+		formpanel.add(tfCountry, gbc_comboBox);   	
         
         btnSave = new JButton("Save");
         btnReset = new JButton("Reset");
         btnMenu   = new JButton("Back to Menu");
-        
-
+      
         btnMenu.addActionListener(new ActionListener() {
         	 
             public void actionPerformed(ActionEvent e) {
@@ -155,11 +221,11 @@ public class Product extends JDialog
         		session = sessFact.getCurrentSession();
         		org.hibernate.Transaction tr = session.beginTransaction();
         		ProductModel prodModel = new ProductModel();
-        		prodModel.setProdName(tfProductName.getText());
+        		prodModel.setProdName(tfProdName.getText());
         		prodModel.setProdPrice(Integer.parseInt(tfPrice.getText()));
-        		prodModel.setProdRating(tfRating.getText());
-        		prodModel.setProdMake(tfMake.getText());
-        		prodModel.setProdCountry(tfMakeCountry.getText());
+        		prodModel.setProdRating(tfRating.getSelectedItem().toString());
+        		prodModel.setProdMake(tfMake.getSelectedItem().toString());
+        		prodModel.setProdCountry(tfCountry.getSelectedItem().toString());
         		session.save(prodModel);
         		tr.commit();
         		System.out.println("Successfully inserted");
@@ -189,19 +255,35 @@ public class Product extends JDialog
             }
         });
         
-        JPanel bp = new JPanel();
         bp.add(btnSave);
         bp.add(btnReset);
         bp.add(btnMenu);
   
-        panel.setPreferredSize(new Dimension(640, 480));       
-        getContentPane().add(panel, BorderLayout.PAGE_START);
-        getContentPane().add(bp, BorderLayout.PAGE_END);
+        getContentPane().add(title, BorderLayout.NORTH);
+        getContentPane().add(formpanel, BorderLayout.CENTER);
+        getContentPane().add(bp, BorderLayout.SOUTH);
         pack();
         setResizable(true);
         setLocationRelativeTo(parent1);
         
      }
+    
+    private Country[] createCountryList() {
+        String[] countryCodes = Locale.getISOCountries();
+        Country[] listCountry = new Country[countryCodes.length];
+ 
+        for (int i = 0; i < countryCodes.length; i++) {
+            Locale locale = new Locale("", countryCodes[i]);
+            String code = locale.getCountry();
+            String name = locale.getDisplayCountry();
+ 
+            listCountry[i] = new Country(code, name);
+        }
+ 
+        Arrays.sort(listCountry);
+ 
+        return listCountry;
+    }
  
     public void ProductListAllUI()
     {   	
@@ -212,8 +294,8 @@ public class Product extends JDialog
     	GridBagConstraints gs = new GridBagConstraints();
     	gs.fill = GridBagConstraints.HORIZONTAL;
     	
-    	JOptionPane.showMessageDialog(Product.this, "! You are in List Product !!!", "PRODUCT",
-                JOptionPane.INFORMATION_MESSAGE);   	
+    	//JOptionPane.showMessageDialog(Product.this, "! You are in List Product !!!", "PRODUCT",
+               // JOptionPane.INFORMATION_MESSAGE);   	
     	{
      		SessionFactory sessFact = HibernateUtil.getSessionFactory();
     		session = sessFact.getCurrentSession();
@@ -241,6 +323,33 @@ public class Product extends JDialog
     		//sessFact.close();
     	}
     	
+    	JPanel title = new JPanel();
+    	title.setBackground(Color.decode("#006666"));
+    	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+	    title.setPreferredSize(new Dimension(640,30));
+        title.setOpaque(true);
+        
+       	//Create Panel for Menu       
+    	JPanel tblpanel = new JPanel(new BorderLayout());
+        tblpanel.setPreferredSize(new Dimension(640, 320));   
+		tblpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+		tblpanel.setBackground(Color.white);
+		
+       	//Create Panel for Bottom (Adding Buttons for Operations)               
+	    JPanel bp = new JPanel();
+        bp.setBackground(Color.decode("#87CEFA"));
+        bp.setPreferredSize(new Dimension(640, 40));  
+    	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+        bp.setOpaque(true);
+        
+	    JLabel ltitle = new JLabel("Vendor Management Portal");
+	    ltitle.setHorizontalAlignment(JLabel.CENTER);
+	    ltitle.setVerticalAlignment(JLabel.CENTER);
+	    ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));
+	    ltitle.setForeground(Color.WHITE);
+	    title.add(ltitle);    
+    	
+    	
         JPanel hp = new JPanel();
         hp.setLayout(new BorderLayout());
             	
@@ -256,17 +365,24 @@ public class Product extends JDialog
         
         //create the table
         JTable table = new JTable(model);
-    	panel.add(table, BorderLayout.CENTER);
-    	panel.add(table.getTableHeader(), BorderLayout.PAGE_START);
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setBackground(Color.decode("#808000"));
+        tableHeader.setForeground(Color.WHITE);
+    	tblpanel.add(table, BorderLayout.CENTER);
+    	tblpanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
+        JScrollPane scrlpane = new JScrollPane(table);
+        scrlpane.setSize(new Dimension(640,320));
+        scrlpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrlpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        tblpanel.add(scrlpane, BorderLayout.CENTER);     
 
+        //create the button component to return to main menu 
        	btnMenu   = new JButton("Back to Menu");
-        
-        JPanel bp = new JPanel();
         bp.add(btnMenu);
   
-        panel.setPreferredSize(new Dimension(640, 480));   
-        getContentPane().add(hp, BorderLayout.PAGE_START);
-        getContentPane().add(panel, BorderLayout.LINE_START);
+        getContentPane().add(title, BorderLayout.PAGE_START);
+        getContentPane().add(hp, BorderLayout.LINE_START);
+        getContentPane().add(tblpanel, BorderLayout.LINE_START);
         getContentPane().add(bp, BorderLayout.PAGE_END);
         pack();
         setResizable(true);

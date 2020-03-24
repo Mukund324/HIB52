@@ -105,10 +105,12 @@ public class MainMenuHelper extends JDialog
         	 
             public void actionPerformed(ActionEvent e) 
             {
-            	 JOptionPane.showMessageDialog(null, "! You have selected Define->Vendor!!!.", "MainMenu",
-                         JOptionPane.INFORMATION_MESSAGE);
-            	 // Vendor vframe=new Vendor(parent);
-            	 // vframe.setVisible(true);
+            	 //JOptionPane.showMessageDialog(null, "! You have selected Define->Vendor!!!.", "MainMenu",
+                        // JOptionPane.INFORMATION_MESSAGE);
+            	 dispose();
+            	 VendorUI vframe=new VendorUI(parent1);
+            	 vframe.VendorAddUI();
+            	 vframe.setVisible(true);
             }
         });
         
@@ -117,8 +119,8 @@ public class MainMenuHelper extends JDialog
         	 
             public void actionPerformed(ActionEvent e) 
             {
-            	 JOptionPane.showMessageDialog(null, "! You have selected Define->Product!!!.", "MainMenu",
-                         JOptionPane.INFORMATION_MESSAGE);
+            	 //JOptionPane.showMessageDialog(null, "! You have selected Define->Product!!!.", "MainMenu",
+                 //        JOptionPane.INFORMATION_MESSAGE);
              	 dispose();
             	 Product pframe=new Product(parent1);
             	 pframe.ProductAddUI();
@@ -126,13 +128,27 @@ public class MainMenuHelper extends JDialog
             }
         });
         
+        v1.addActionListener(new ActionListener() 
+        {
+        	 
+            public void actionPerformed(ActionEvent e) 
+            {
+            	// JOptionPane.showMessageDialog(null, "! You have selected View->Vendor!!!.", "MainMenu",
+                //         JOptionPane.INFORMATION_MESSAGE);
+             	 dispose();
+            	 VendorUI vframe=new VendorUI(parent1);
+             	 vframe.VendorListAllUI();
+            	 vframe.setVisible(true);
+             	
+            }
+        });
         v2.addActionListener(new ActionListener() 
         {
         	 
             public void actionPerformed(ActionEvent e) 
             {
-            	 JOptionPane.showMessageDialog(null, "! You have selected View->Product!!!.", "MainMenu",
-                         JOptionPane.INFORMATION_MESSAGE);
+            	// JOptionPane.showMessageDialog(null, "! You have selected View->Product!!!.", "MainMenu",
+                //         JOptionPane.INFORMATION_MESSAGE);
              	 dispose();
             	 Product pframe=new Product(parent1);
              	 pframe.ProductListAllUI();
