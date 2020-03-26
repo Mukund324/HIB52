@@ -56,45 +56,21 @@ public class MainMenuHelper extends JDialog
         //creating the Menu and corresponding Menu Items
         menu=new JMenuBar();    
 
-         x = new JMenu("CREATE");       
-        d1 = new JMenuItem("VENDOR");
-        d2 = new JMenuItem("PRODUCT");
-        d3 = new JMenuItem("PART");
+        x = new JMenu("CREATE"); d1 = new JMenuItem("VENDOR"); d2 = new JMenuItem("PRODUCT");d3 = new JMenuItem("PART");
         x.add(d1); x.add(d2); x.add(d3);    
-        
-         v = new JMenu("VIEW");        
-        v1 = new JMenuItem("VENDOR");
-        v2 = new JMenuItem("PRODUCT");
-        v3 = new JMenuItem("PART");
+        v = new JMenu("VIEW");v1 = new JMenuItem("VENDOR"); v2 = new JMenuItem("PRODUCT");v3 = new JMenuItem("PART");
         v.add(v1); v.add(v2); v.add(v3);    
-        
-        y = new JMenu("PLAN");        
-        p1 = new JMenuItem("PRODUCT RELEASE");
-        p2 = new JMenuItem("PURCHASE");
-        p3 = new JMenuItem("BILL OF MATERIALS(BOM)");
+        y = new JMenu("PLAN"); p1 = new JMenuItem("Bill of Materials");p2 = new JMenuItem("PURCHASE");p3 = new JMenuItem("BILL OF MATERIALS(BOM)");
         y.add(p1); y.add(p2); //y.add(m6);     
-        
-        z = new JMenu("MANAGE");        
-        m1 = new JMenuItem("VENDOR");
-        m2 = new JMenuItem("PRODUCT");
-        m3 = new JMenuItem("PART");
+        z = new JMenu("MANAGE"); m1 = new JMenuItem("VENDOR"); m2 = new JMenuItem("PRODUCT"); m3 = new JMenuItem("PART");
         z.add(m1); z.add(m2); z.add(m3);
-        
-        e = new JMenu("REPORT");        
-        r1 = new JMenuItem("INVOICE ");
-        r2 = new JMenuItem("SEND INVOICE");
-        r3 = new JMenuItem("PRINT INVOICE");
+        e = new JMenu("REPORT");r1 = new JMenuItem("INVOICE "); r2 = new JMenuItem("SEND INVOICE");r3 = new JMenuItem("PRINT INVOICE");
         e.add(r1); e.add(r2); e.add(r3);
-        
-        f = new JMenu("ABOUT");        
-        a1 = new JMenuItem("ABOUT SOFTWARE");
-        a2 = new JMenuItem("ABOUT DEVELOPER");
-        a3 = new JMenuItem("ABOUT COMPANY");
+        f = new JMenu("ABOUT"); a1 = new JMenuItem("ABOUT SOFTWARE"); a2 = new JMenuItem("ABOUT DEVELOPER"); a3 = new JMenuItem("ABOUT COMPANY");
         f.add(a1); f.add(a2); f.add(a3);
         
         //Add the Menus to the menubar 
-        menu.add(x); menu.add(v); menu.add(y);
-        menu.add(z); menu.add(e); menu.add(f); 
+        menu.add(x); menu.add(v); menu.add(y); menu.add(z); menu.add(e); menu.add(f); 
 
         //Add the menu to menupanel
         menupanel.add(menu, BorderLayout.PAGE_START);   
@@ -136,7 +112,7 @@ public class MainMenuHelper extends JDialog
             }
         }); //End of Create->Part
         
-      //Define Action Listeners for each of the VIEW components 
+        //Define Action Listeners for each of the VIEW components 
         v1.addActionListener(new ActionListener() 
         {
         	 
@@ -176,9 +152,20 @@ public class MainMenuHelper extends JDialog
             }
         }); //End of View->Part
         
-        
-        
-        //Construct the frame from the panels created for Top, Center and South        
+        //Define Action Listeners for each of the PLAN components 
+        p1.addActionListener(new ActionListener() 
+        {     	 
+            public void actionPerformed(ActionEvent e) 
+            {
+            	 System.out.println("You have chosen Plan->BOM !!!");
+             	 dispose();
+            	 BoMUI bomframe=new BoMUI(parent1);
+             	 bomframe.BoMAddUI();
+            	 bomframe.setVisible(true);            	
+            }
+        }); //End of Plan->Bill of Materials
+                        
+       //Construct the frame from the panels created for Top, Center and South        
         getContentPane().add(title, BorderLayout.NORTH);
         getContentPane().add(menupanel, BorderLayout.CENTER);  
         getContentPane().add(bp, BorderLayout.PAGE_END);

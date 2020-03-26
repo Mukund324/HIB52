@@ -255,8 +255,7 @@ public class PartUI extends JDialog
 		gbc_partSpec.anchor = GridBagConstraints.NORTHWEST;
 		gbc_partSpec.gridx = 1;
 		gbc_partSpec.gridy = 5;
-		formpanel.add(tfPartSpec, gbc_partSpec);
-		
+		formpanel.add(tfPartSpec, gbc_partSpec);		
 		
 		//Typical Price 
 	    JLabel lblPartTypDlvTime = new JLabel("Typical Delivery Time");
