@@ -50,14 +50,15 @@ public class Product extends JDialog
     public JButton btnSave;
     public JButton btnReset;
     public JButton btnMenu;
-
+    
+    //Constructor 
 	public Product(JFrame parent)
 	{
 		super(parent, "Supply Chain Management", true);
 		parent1=parent;
 	}
 	
-    //Creating constructor of ProductFrame() class
+    //Method to display UI for accepting Product inputs from User to Save into the DB  
     public void ProductAddUI()
     {   	
 
@@ -210,13 +211,10 @@ public class Product extends JDialog
         });
         
         btnSave.addActionListener(new ActionListener() 
-        {
-        	 
+        {        	 
             public void actionPerformed(ActionEvent e) 
             {
-            	JOptionPane.showMessageDialog(Product.this, "! You have chosen Define->Product->Save !!!", "PRODUCT",
-                         JOptionPane.INFORMATION_MESSAGE);
-            	
+        		System.out.println("! You have chosen Create->Product->Save !!!");  
          		SessionFactory sessFact = HibernateUtil.getSessionFactory();
         		session = sessFact.getCurrentSession();
         		org.hibernate.Transaction tr = session.beginTransaction();
@@ -228,24 +226,13 @@ public class Product extends JDialog
         		prodModel.setProdCountry(tfCountry.getSelectedItem().toString());
         		session.save(prodModel);
         		tr.commit();
-        		System.out.println("Successfully inserted");
-        		
+        		System.out.println("Successfully inserted Product Info");        		
         		//sessFact.close();
-        		
-            	JOptionPane.showMessageDialog(Product.this, "! You have saved the Product !!!", "PRODUCT",
-                        JOptionPane.INFORMATION_MESSAGE);
-        		         		
-            	dispose();
-            	MainMenuHelper mmframe=new MainMenuHelper(parent1);
-            	mmframe.MainMenuUI();
-         		mmframe.setVisible(true);
-
             }
         });
         
         btnReset.addActionListener(new ActionListener() 
-        {
-        	 
+        {        	 
             public void actionPerformed(ActionEvent e) 
             {
             	dispose();
@@ -266,25 +253,9 @@ public class Product extends JDialog
         setResizable(true);
         setLocationRelativeTo(parent1);
         
-     }
+     } //End of ProductUI()
     
-    private Country[] createCountryList() {
-        String[] countryCodes = Locale.getISOCountries();
-        Country[] listCountry = new Country[countryCodes.length];
- 
-        for (int i = 0; i < countryCodes.length; i++) {
-            Locale locale = new Locale("", countryCodes[i]);
-            String code = locale.getCountry();
-            String name = locale.getDisplayCountry();
- 
-            listCountry[i] = new Country(code, name);
-        }
- 
-        Arrays.sort(listCountry);
- 
-        return listCountry;
-    }
- 
+ //Method to display all the Products from the DB 
     public void ProductListAllUI()
     {   	
     	List<ProductModel> Products;
@@ -307,18 +278,17 @@ public class Product extends JDialog
     		Iterator<ProductModel> itr = Products.iterator();
     		
     		while (itr.hasNext()) {
-
     			ProductModel prodM = itr.next();
-    			System.out.println(prodM.getId());
-    			/*System.out.println(prodM.getProdName());
+      		    System.out.println(prodM.getProdName());
+    		 /* System.out.println(prodM.getId());
     			System.out.println(prodM.getProdPrice());
     			System.out.println(prodM.getProdRating());
     			System.out.println(prodM.getProdMake());
        			System.out.println(prodM.getProdCountry());
-       			*/
+       		 */
     		}
     		tr.commit();
-    		System.out.println("Data displayed");
+    		System.out.println("Data displayed for Product");
 
     		//sessFact.close();
     	}
@@ -398,10 +368,25 @@ public class Product extends JDialog
         		mmframe.setVisible(true);
             }
         });
-        
-        
-     }
-
+     } //End of ProductListAllUI()
     
-}
+//Method to display all the Countries     
+    private Country[] createCountryList() {
+        String[] countryCodes = Locale.getISOCountries();
+        Country[] listCountry = new Country[countryCodes.length];
+ 
+        for (int i = 0; i < countryCodes.length; i++) {
+            Locale locale = new Locale("", countryCodes[i]);
+            String code = locale.getCountry();
+            String name = locale.getDisplayCountry();
+ 
+            listCountry[i] = new Country(code, name);
+        }
+ 
+        Arrays.sort(listCountry);
+ 
+        return listCountry;
+    } // End of createCountryList()
+ 
+} //End of Class Product()
 

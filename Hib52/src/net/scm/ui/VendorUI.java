@@ -320,9 +320,7 @@ public class VendorUI extends JDialog
 	        	 
 	            public void actionPerformed(ActionEvent e) 
 	            {
-	            	JOptionPane.showMessageDialog(VendorUI.this, "! You have chosen Define->Vendor->Save !!!", "Vendor",
-	                         JOptionPane.INFORMATION_MESSAGE);
-	            	
+	            	System.out.println("You have chosen Create->Vendor->Save !!!");
 	         		SessionFactory sessFact = HibernateUtil.getSessionFactory();
 	        		session = sessFact.getCurrentSession();
 	        		org.hibernate.Transaction tr = session.beginTransaction();
@@ -339,17 +337,8 @@ public class VendorUI extends JDialog
 	        		
 	        		session.save(vendModel);
 	        		tr.commit();
-	        		System.out.println("Successfully inserted");
-	        		
+	        		System.out.println("Successfully inserted Vendor Info");	        		
 	        		//sessFact.close();
-	        		
-	           // 	JOptionPane.showMessageDialog(VendorUI.this, "! You have saved the Vendor !!!", "VENDORUI",
-	                //        JOptionPane.INFORMATION_MESSAGE);
-	        		         		
-	            	dispose();
-	            	MainMenuHelper mmframe=new MainMenuHelper(parent1);
-	            	mmframe.MainMenuUI();
-	         		mmframe.setVisible(true);
 
 	            }
 	        });

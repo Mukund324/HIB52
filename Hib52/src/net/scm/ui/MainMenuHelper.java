@@ -59,13 +59,13 @@ public class MainMenuHelper extends JDialog
          x = new JMenu("CREATE");       
         d1 = new JMenuItem("VENDOR");
         d2 = new JMenuItem("PRODUCT");
-        d3 = new JMenuItem("COMPONENT");
+        d3 = new JMenuItem("PART");
         x.add(d1); x.add(d2); x.add(d3);    
         
          v = new JMenu("VIEW");        
         v1 = new JMenuItem("VENDOR");
         v2 = new JMenuItem("PRODUCT");
-        v3 = new JMenuItem("COMPONENT");
+        v3 = new JMenuItem("PART");
         v.add(v1); v.add(v2); v.add(v3);    
         
         y = new JMenu("PLAN");        
@@ -77,7 +77,7 @@ public class MainMenuHelper extends JDialog
         z = new JMenu("MANAGE");        
         m1 = new JMenuItem("VENDOR");
         m2 = new JMenuItem("PRODUCT");
-        m3 = new JMenuItem("COMPONENT");
+        m3 = new JMenuItem("PART");
         z.add(m1); z.add(m2); z.add(m3);
         
         e = new JMenu("REPORT");        
@@ -99,97 +99,84 @@ public class MainMenuHelper extends JDialog
         //Add the menu to menupanel
         menupanel.add(menu, BorderLayout.PAGE_START);   
         
-        //Define Action Listeners for each of the components 
+        //Define Action Listeners for each of the CREATE components 
         d1.addActionListener(new ActionListener() 
         {
-        	 
             public void actionPerformed(ActionEvent e) 
             {
-            	 //JOptionPane.showMessageDialog(null, "! You have selected Define->Vendor!!!.", "MainMenu",
-                        // JOptionPane.INFORMATION_MESSAGE);
+            	 System.out.println("You have chosen Create->Vendor !!!");
             	 dispose();
             	 VendorUI vframe=new VendorUI(parent1);
             	 vframe.VendorAddUI();
             	 vframe.setVisible(true);
             }
-        });
+        }); //End of Create->Vendor
         
         d2.addActionListener(new ActionListener() 
         {
-        	 
-            public void actionPerformed(ActionEvent e) 
+        	public void actionPerformed(ActionEvent e) 
             {
-            	 //JOptionPane.showMessageDialog(null, "! You have selected Define->Product!!!.", "MainMenu",
-                 //        JOptionPane.INFORMATION_MESSAGE);
+        		 System.out.println("You have chosen Create->Product !!!");
              	 dispose();
             	 Product pframe=new Product(parent1);
             	 pframe.ProductAddUI();
              	 pframe.setVisible(true);
             }
-        });
+        }); //End of Create->Product
         
+        d3.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+       		     System.out.println("You have chosen Create->Part !!!");
+             	 dispose();
+            	 PartUI prtframe=new PartUI(parent1);
+            	 prtframe.PartAddUI();
+             	 prtframe.setVisible(true);
+            }
+        }); //End of Create->Part
+        
+      //Define Action Listeners for each of the VIEW components 
         v1.addActionListener(new ActionListener() 
         {
         	 
             public void actionPerformed(ActionEvent e) 
             {
-            	// JOptionPane.showMessageDialog(null, "! You have selected View->Vendor!!!.", "MainMenu",
-                //         JOptionPane.INFORMATION_MESSAGE);
+      		     System.out.println("You have chosen View->Vendor !!!");
              	 dispose();
             	 VendorUI vframe=new VendorUI(parent1);
              	 vframe.VendorListAllUI();
             	 vframe.setVisible(true);
              	
             }
-        });
+        }); //End of View->Vendor
+        
         v2.addActionListener(new ActionListener() 
-        {
-        	 
+        {     	 
             public void actionPerformed(ActionEvent e) 
             {
-            	// JOptionPane.showMessageDialog(null, "! You have selected View->Product!!!.", "MainMenu",
-                //         JOptionPane.INFORMATION_MESSAGE);
+            	 System.out.println("You have chosen View->Product !!!");
              	 dispose();
             	 Product pframe=new Product(parent1);
              	 pframe.ProductListAllUI();
             	 pframe.setVisible(true);
              	
             }
-        });
+        }); //End of View->Product
         
-        d3.addActionListener(new ActionListener() 
-        {
-        	 
+        v3.addActionListener(new ActionListener() 
+        {     	 
             public void actionPerformed(ActionEvent e) 
             {
-            	 JOptionPane.showMessageDialog(null, "! You have selected Define->Component!!!.", "MainMenu",
-                         JOptionPane.INFORMATION_MESSAGE);
-//            	 dispose();
+            	 System.out.println("You have chosen View->Part !!!");
+             	 dispose();
+            	 PartUI partframe=new PartUI(parent1);
+             	 partframe.PartListAllUI();
+            	 partframe.setVisible(true);            	
             }
-        });
+        }); //End of View->Part
         
-        p1.addActionListener(new ActionListener() 
-        {
-        	 
-            public void actionPerformed(ActionEvent e) 
-            {
-            	 JOptionPane.showMessageDialog(null, "! You have selected Define->Product!!!.", "MainMenu",
-                         JOptionPane.INFORMATION_MESSAGE);
-//            	 dispose();
-            }
-        });
-
-        p2.addActionListener(new ActionListener() 
-        {
-        	 
-            public void actionPerformed(ActionEvent e) 
-            {
-            	 JOptionPane.showMessageDialog(null, "! You have selected Product->Purchase!!!.", "MainMenu",
-                         JOptionPane.INFORMATION_MESSAGE);
-//            	 dispose();
-
-            }
-        });       
+        
         
         //Construct the frame from the panels created for Top, Center and South        
         getContentPane().add(title, BorderLayout.NORTH);
