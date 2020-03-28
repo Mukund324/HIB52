@@ -4,25 +4,25 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import net.scm.model.*;
 
-public class ProductTableModel extends AbstractTableModel
+
+public class BoMTableModel extends AbstractTableModel
 {
 	
-
 	private static final long serialVersionUID = 1L;
-	private final List<ProductModel> productList;
+	private final List<BoMModel> bomList;
 	private final String[] columnNames = new String[] 
 	{
-		"Name", "ProductID", "Price", "Rating", "Make", "Country"
+            "Product Name", "Product ID", "Part Name", "Part ID", "Quantity"
     };
 	
 	private final Class[] columnClass = new Class[] 
 	{
-	        Integer.class,  String.class, String.class, Integer.class, String.class, String.class
+	       String.class, String.class, String.class, String.class, Integer.class
 	};
 	
-    public ProductTableModel(List<ProductModel> productList)
+    public BoMTableModel(List<BoMModel> bomList)
     {
-        this.productList = productList;
+        this.bomList = bomList;
     }
     
     @Override
@@ -47,31 +47,32 @@ public class ProductTableModel extends AbstractTableModel
     @Override
     public int getRowCount()
     {
-        return productList.size();
+        return bomList.size();
     }
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex)
     {
-        ProductModel row = productList.get(rowIndex);
+        BoMModel row = bomList.get(rowIndex);
+
         if(0 == columnIndex) {
-            return row.getProdName();
+        	  return row.getbomProdName();           
         }
         else if(1 == columnIndex) {
-            return row.getProdId();
+          
+            return row.getbomProdId();
         }
         else if(2 == columnIndex) {
-            return row.getProdPrice();
+            return row.getbomPartName();
+         
         }
         else if(3 == columnIndex) {
-            return row.getProdRating();
+        	   return row.getbomPartId();
         }
         else if(4 == columnIndex) {
-            return row.getProdMake();
-        }
-        else if(5 == columnIndex) {
-            return row.getProdCountry();
+            return row.getbomPartQty();
         }
         return null;
     }
+
 }

@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.transaction.Transaction;
 
@@ -457,6 +458,11 @@ public class VendorUI extends JDialog
 	        
 	        //create the table
 	        JTable table = new JTable(model);
+	        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+	        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+	        for (int i=0; i<table.getColumnCount();i++){
+	            table.setDefaultRenderer(table.getColumnClass(i),renderer);
+	        }
 	        JTableHeader tableHeader = table.getTableHeader();
 	        tableHeader.setBackground(Color.decode("#808000"));
 	        tableHeader.setForeground(Color.WHITE);

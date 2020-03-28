@@ -19,6 +19,8 @@
 <mapping class="net.scm.model.ProductModel" />
 <mapping class="net.scm.model.VendorModel" />
 <mapping class="net.scm.model.PartModel" />
+<mapping class="net.scm.model.BoMModel" />
+<mapping class="net.scm.model.SupplyModel" />
 
 </session-factory>
 </hibernate-configuration>

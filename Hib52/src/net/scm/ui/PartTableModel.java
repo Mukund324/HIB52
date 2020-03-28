@@ -10,7 +10,7 @@ public class PartTableModel extends AbstractTableModel
 	private final List<PartModel> partList;
 	private final String[] columnNames = new String[] 
 	{
-           "id",  "PARTID", "NAME", "PROFILE", "MATERIAL", "SPEC","TYP-PRICE","TYP-DLY-SCH","QLTY-STD"
+		"NAME", "PARTID",  "PROFILE", "MATERIAL", "SPEC","TYP-PRICE","TYP-DLY-SCH","QLTY-STD"
     };
 	private final Class[] columnClass = new Class[] 
 	{
@@ -42,30 +42,27 @@ public class PartTableModel extends AbstractTableModel
 	    {
 	    	PartModel row = partList.get(rowIndex);
 	        if(0 == columnIndex) {
-	            return row.getId();
-	        }
+	            return row.getpartName();
+	        }	    	
 	        else if(1 == columnIndex) {
 	            return row. getpartId();
 	        }
 	        else if(2 == columnIndex) {
-	            return row.getpartName();
-	        }
-	        else if(3 == columnIndex) {
 	            return row.getpartProf();
 	        }
-	        else if(4 == columnIndex) {
+	        else if(3 == columnIndex) {
 	            return row.getpartMaterial();
 	        }
-	        else if(5 == columnIndex) {
+	        else if(4 == columnIndex) {
 	            return row.getpartSpec();
 	        }
-	        else if(6 == columnIndex) {
+	        else if(5 == columnIndex) {
 	            return row.getpartTypPrice();
 	        }
-	        else if(7 == columnIndex) {
+	        else if(6 == columnIndex) {
 	            return row.getpartTypSuppSch();
 	        }
-	        else if(8 == columnIndex) {
+	        else if(7 == columnIndex) {
 	            return row.getpartQlyStd();
 	        }
 	        return null;

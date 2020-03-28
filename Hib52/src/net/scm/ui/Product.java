@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.transaction.Transaction;
 
@@ -92,7 +93,28 @@ public class Product extends JDialog
 	    ltitle.setVerticalAlignment(JLabel.CENTER);
 	    ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));
 	    ltitle.setForeground(Color.WHITE);
-	    title.add(ltitle);    
+	    title.add(ltitle); 
+
+		JLabel lblProdID = new JLabel("ID");
+		lblProdID.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblProdID = new GridBagConstraints();
+		gbc_lblProdID.anchor = GridBagConstraints.EAST;
+		gbc_lblProdID.insets = new Insets(10, 10, 10, 5);
+		gbc_lblProdID.gridx = 0;
+		gbc_lblProdID.gridy = 1;
+		formpanel.add(lblProdID, gbc_lblProdID);
+		
+		JTextField tfProdID = new JTextField();
+		tfProdID.setText(" ");
+		tfProdID.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_prodID = new GridBagConstraints();
+		gbc_prodID.gridwidth = 2;
+		gbc_prodID.insets = new Insets(10, 10, 10, 5);
+		gbc_prodID.anchor = GridBagConstraints.NORTHWEST;
+		gbc_prodID.gridx = 1;
+		gbc_prodID.gridy = 1;
+		formpanel.add(tfProdID, gbc_prodID);
+		tfProdID.setColumns(30);
 	    
 		JLabel lblProdName = new JLabel("Name");
 		lblProdName.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -100,7 +122,7 @@ public class Product extends JDialog
 		gbc_lblProdName.anchor = GridBagConstraints.EAST;
 		gbc_lblProdName.insets = new Insets(10, 10, 10, 5);
 		gbc_lblProdName.gridx = 0;
-		gbc_lblProdName.gridy = 1;
+		gbc_lblProdName.gridy = 3;
 		formpanel.add(lblProdName, gbc_lblProdName);
 		
 		JTextField tfProdName = new JTextField();
@@ -111,7 +133,7 @@ public class Product extends JDialog
 		gbc_prodName.insets = new Insets(10, 10, 10, 5);
 		gbc_prodName.anchor = GridBagConstraints.NORTHWEST;
 		gbc_prodName.gridx = 1;
-		gbc_prodName.gridy = 1;
+		gbc_prodName.gridy = 3;
 		formpanel.add(tfProdName, gbc_prodName);
 		tfProdName.setColumns(30);
 		
@@ -121,7 +143,7 @@ public class Product extends JDialog
 		gbc_lblProductPrice.anchor = GridBagConstraints.EAST;
 		gbc_lblProductPrice.insets = new Insets(10, 10, 10, 5);
 		gbc_lblProductPrice.gridx = 0;
-		gbc_lblProductPrice.gridy = 3;
+		gbc_lblProductPrice.gridy = 5;
 		formpanel.add(lbPrice, gbc_lblProductPrice);
 		
 		JTextField tfPrice = new JTextField();
@@ -131,7 +153,7 @@ public class Product extends JDialog
 		gbc_textField.insets = new Insets(10, 10, 10, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 3;
+		gbc_textField.gridy = 5;
 		formpanel.add(tfPrice, gbc_textField);
 		tfPrice.setColumns(10);
 		
@@ -141,7 +163,7 @@ public class Product extends JDialog
 		gbc_lblProdRating.anchor = GridBagConstraints.EAST;
 		gbc_lblProdRating.insets = new Insets(10, 10, 10, 5);
 		gbc_lblProdRating.gridx = 0;
-		gbc_lblProdRating.gridy = 5;
+		gbc_lblProdRating.gridy = 7;
 		formpanel.add(lbRating, gbc_lblProdRating);
 		
 		JComboBox tfRating = new JComboBox();
@@ -152,7 +174,7 @@ public class Product extends JDialog
 		gbc_ProdRating.insets = new Insets(10, 10, 10, 5);
 		gbc_ProdRating.fill = GridBagConstraints.HORIZONTAL;
 		gbc_ProdRating.gridx = 1;
-		gbc_ProdRating.gridy = 5;
+		gbc_ProdRating.gridy = 7;
 		formpanel.add(tfRating, gbc_ProdRating);
 		
 		JLabel lbMake = new JLabel("Make");
@@ -161,7 +183,7 @@ public class Product extends JDialog
 		gbc_lblProdMake.anchor = GridBagConstraints.EAST;
 		gbc_lblProdMake.insets = new Insets(10, 10, 10, 5);
 		gbc_lblProdMake.gridx = 0;
-		gbc_lblProdMake.gridy = 7;
+		gbc_lblProdMake.gridy = 9;
 		formpanel.add(lbMake, gbc_lblProdMake);
 		
 		JComboBox tfMake = new JComboBox();
@@ -172,7 +194,7 @@ public class Product extends JDialog
 		gbc_ProdMakeSelect.insets = new Insets(10, 10, 10, 5);
 		gbc_ProdMakeSelect.fill = GridBagConstraints.HORIZONTAL;
 		gbc_ProdMakeSelect.gridx = 1;
-		gbc_ProdMakeSelect.gridy = 7;
+		gbc_ProdMakeSelect.gridy = 9;
 		formpanel.add(tfMake, gbc_ProdMakeSelect);
 		
 		JLabel lbCountry = new JLabel("Country");
@@ -181,7 +203,7 @@ public class Product extends JDialog
 		gbc_lblProdCountry.anchor = GridBagConstraints.EAST;
 		gbc_lblProdCountry.insets = new Insets(10, 10, 10, 5);
 		gbc_lblProdCountry.gridx = 0;
-		gbc_lblProdCountry.gridy = 9;
+		gbc_lblProdCountry.gridy =11;
 		formpanel.add(lbCountry, gbc_lblProdCountry);
 		
 	    Country[] listCountry = createCountryList();
@@ -193,7 +215,7 @@ public class Product extends JDialog
 		gbc_comboBox.insets = new Insets(10, 10, 10, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 9;
+		gbc_comboBox.gridy = 11;
 		formpanel.add(tfCountry, gbc_comboBox);   	
         
         btnSave = new JButton("Save");
@@ -219,6 +241,7 @@ public class Product extends JDialog
         		session = sessFact.getCurrentSession();
         		org.hibernate.Transaction tr = session.beginTransaction();
         		ProductModel prodModel = new ProductModel();
+        		prodModel.setProdId(tfProdID.getText());
         		prodModel.setProdName(tfProdName.getText());
         		prodModel.setProdPrice(Integer.parseInt(tfPrice.getText()));
         		prodModel.setProdRating(tfRating.getSelectedItem().toString());
@@ -335,6 +358,11 @@ public class Product extends JDialog
         
         //create the table
         JTable table = new JTable(model);
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i=0; i<table.getColumnCount();i++){
+            table.setDefaultRenderer(table.getColumnClass(i),renderer);
+        }
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setBackground(Color.decode("#808000"));
         tableHeader.setForeground(Color.WHITE);
