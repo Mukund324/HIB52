@@ -14,22 +14,21 @@ public class MainMenuHelper extends JDialog
 	static JTextField tfMessage;
     static JMenuBar menu;
     static JMenu x,y,z,e,f,v;
-    static JMenuItem d1,d2,d3, p1,p2,p3, m1,m2,m3, r1,r2,r3, a1,a2,a3, v1,v2,v3,v4,v5;
+    static JMenuItem d1,d2,d3, p1,p2,p3, m1,m2,m3, r1,r2,r3, a1,a2,a3, v1,v2,v3,v4,v5,v6;
     
 	public JFrame parent1;
+	public Integer countProduct;
+	public Integer countVendor;
+	public Integer countPart;
+	public Integer countSupplies;
+	public Integer countProdCycles;
+	public Integer countOrders;
 	
 	public MainMenuHelper(JFrame parent)
 	{
 		super(parent, "Vendor Management System", true);
 		parent1=parent;
 	}
-	/*
-	@Override
-    public Insets getInsets()
-    {
-        return new Insets(2,2,2,2);
-    }
-    */
 
     //Method to Display UI for the Main Menu
     public void MainMenuUI()
@@ -46,10 +45,10 @@ public class MainMenuHelper extends JDialog
      	menupanel.setOpaque(true);
      	
      	//Create Panel for Displaying Scorecards of #Products, #Vendors, #Parts, #Production Plans, #Orders 
-     	EtchedBorder eBorder = new EtchedBorder(EtchedBorder.LOWERED, Color.GRAY, Color.gray);
-    	JPanel scardpanel = new JPanel(new BorderLayout(10,10));
+     	EtchedBorder eBorder = new EtchedBorder(EtchedBorder.LOWERED, Color.WHITE, Color.gray);
+    	JPanel scardpanel = new JPanel(new BorderLayout(5,5));
     	scardpanel.setBackground(Color.WHITE);
-    	scardpanel.setPreferredSize(new Dimension(638, 300));
+    	scardpanel.setPreferredSize(new Dimension(638, 320));
     	scardpanel.setOpaque(true);
     	menupanel.add(scardpanel, BorderLayout.PAGE_END);
     	
@@ -57,72 +56,137 @@ public class MainMenuHelper extends JDialog
     	scardpanel1.setBackground(Color.WHITE);
     	scardpanel1.setPreferredSize(new Dimension(638, 150));
     	scardpanel1.setOpaque(true);
-    	scardpanel1.setBorder(BorderFactory.createEmptyBorder(5, 5,5, 5));
+    	scardpanel1.setBorder(BorderFactory.createEmptyBorder(10, 5,0, 5));
     	scardpanel.add(scardpanel1, BorderLayout.PAGE_START);
     	JPanel scpProduct = new JPanel(new BorderLayout());
-    	scpProduct.setBackground(Color.WHITE);
+    	scpProduct.setBackground(Color.decode("#AFEEEE"));
     	scpProduct.setPreferredSize(new Dimension(200, 150));
     	scpProduct.setOpaque(true);
-    	scpProduct.setBorder(eBorder);
     	scardpanel1.add(scpProduct, BorderLayout.LINE_START);
     	JPanel scpVendor = new JPanel(new BorderLayout());
-    	scpVendor.setBackground(Color.WHITE);
+    	scpVendor.setBackground(Color.decode("#AFEEEE"));
     	scpVendor.setPreferredSize(new Dimension(200, 150));
     	scpVendor.setOpaque(true);
-    	scpVendor.setBorder(eBorder);
+    	//scpVendor.setBorder(eBorder);
     	scardpanel1.add(scpVendor, BorderLayout.CENTER);
     	JPanel scpPart = new JPanel(new BorderLayout());
-    	scpPart.setBackground(Color.WHITE);
+    	scpPart.setBackground(Color.decode("#AFEEEE"));
     	scpPart.setPreferredSize(new Dimension(200, 150));
     	scpPart.setOpaque(true);
-    	scpPart.setBorder(eBorder);
+    	//scpPart.setBorder(eBorder);
     	scardpanel1.add(scpPart, BorderLayout.LINE_END);    	
     	
     	JLabel sclProduct = new JLabel("Products");
     	sclProduct.setHorizontalAlignment(SwingConstants.CENTER);
+    	sclProduct.setFont(new Font("Tahoma", Font.PLAIN, 18));
+    	sclProduct.setBackground(Color.decode("#006666"));
+    	sclProduct.setForeground(Color.WHITE);
+    	sclProduct.setOpaque(true);
+    	JLabel scProduct = new JLabel("5");
+    	scProduct.setFont(new Font("Arial", Font.PLAIN, 75));
+    	scProduct.setHorizontalAlignment(SwingConstants.CENTER);
+    	scProduct.setForeground(Color.decode("#CD5C5C"));
+    	scpProduct.add(sclProduct, BorderLayout.PAGE_END);
+    	scpProduct.add(scProduct, BorderLayout.CENTER);
+    	
     	JLabel sclVendor = new JLabel("Vendor");
     	sclVendor.setHorizontalAlignment(SwingConstants.CENTER);
-    	JLabel sclParts = new JLabel("Parts");
-    	sclParts.setHorizontalAlignment(SwingConstants.CENTER);
-    	scpProduct.add(sclProduct, BorderLayout.PAGE_END);
+    	sclVendor.setFont(new Font("Tahoma", Font.PLAIN, 18));
+    	sclVendor.setBackground(Color.decode("#006666"));
+    	sclVendor.setForeground(Color.WHITE);
+    	sclVendor.setOpaque(true);
+    	sclVendor.setHorizontalAlignment(SwingConstants.CENTER);
+    	JLabel scVendor = new JLabel("20");
+    	scVendor.setFont(new Font("Arial", Font.PLAIN, 75));
+    	scVendor.setHorizontalAlignment(SwingConstants.CENTER);
+    	scVendor.setForeground(Color.decode("#800000"));
+    	scpVendor.add(scVendor, BorderLayout.CENTER);
     	scpVendor.add(sclVendor, BorderLayout.PAGE_END);
-    	scpPart.add(sclParts, BorderLayout.PAGE_END);
+    	
+    	JLabel sclPart = new JLabel("Parts");
+    	sclPart.setHorizontalAlignment(SwingConstants.CENTER);
+    	sclPart.setFont(new Font("Tahoma", Font.PLAIN, 18));
+    	sclPart.setBackground(Color.decode("#006666"));
+    	sclPart.setForeground(Color.WHITE);
+    	sclPart.setOpaque(true);
+    	sclPart.setHorizontalAlignment(SwingConstants.CENTER);
+    	JLabel scPart = new JLabel("50");
+    	scPart.setFont(new Font("Arial", Font.PLAIN, 75));
+    	scPart.setHorizontalAlignment(SwingConstants.CENTER);
+    	scPart.setForeground(Color.decode("#006400"));
+       	scpPart.add(scPart, BorderLayout.CENTER);
+    	scpPart.add(sclPart, BorderLayout.PAGE_END);
+ 
    	
     	JPanel scardpanel2 = new JPanel(new BorderLayout(10,10));
     	scardpanel2.setBackground(Color.WHITE);
     	scardpanel2.setPreferredSize(new Dimension(638, 150));
     	scardpanel2.setOpaque(true);
-    	scardpanel2.setBorder(BorderFactory.createEmptyBorder(5, 5,5, 5));
+    	scardpanel2.setBorder(BorderFactory.createEmptyBorder(0, 5,10, 5));
     	scardpanel.add(scardpanel2, BorderLayout.PAGE_END);
     	
     	JPanel scpSupply = new JPanel(new BorderLayout());
-    	scpSupply.setBackground(Color.WHITE);
+    	scpSupply.setBackground(Color.decode("#AFEEEE"));
     	scpSupply.setPreferredSize(new Dimension(200, 150));
     	scpSupply.setOpaque(true);
-    	scpSupply.setBorder(eBorder);
     	scardpanel2.add(scpSupply, BorderLayout.LINE_START);
     	JPanel scpOrder = new JPanel(new BorderLayout());
-    	scpOrder.setBackground(Color.WHITE);
+    	scpOrder.setBackground(Color.decode("#AFEEEE"));
     	scpOrder.setPreferredSize(new Dimension(200, 150));
     	scpOrder.setOpaque(true);
-    	scpOrder.setBorder(eBorder);
     	scardpanel2.add(scpOrder, BorderLayout.CENTER);
     	JPanel scpProd = new JPanel(new BorderLayout());
-    	scpProd.setBackground(Color.WHITE);
+    	scpProd.setBackground(Color.decode("#AFEEEE"));
     	scpProd.setPreferredSize(new Dimension(200, 150));
     	scpProd.setOpaque(true);
-    	scpProd.setBorder(eBorder);
     	scardpanel2.add(scpProd, BorderLayout.LINE_END);    
     	
     	JLabel sclSupplies = new JLabel("Supplies");
     	sclSupplies.setHorizontalAlignment(SwingConstants.CENTER);
-    	JLabel sclOrders = new JLabel("Orders");
-    	sclOrders.setHorizontalAlignment(SwingConstants.CENTER);
-    	JLabel sclProduction = new JLabel("Production Plans");  
-    	sclProduction.setHorizontalAlignment(SwingConstants.CENTER);
+    	sclSupplies.setFont(new Font("Tahoma", Font.PLAIN, 18));
+    	sclSupplies.setBackground(Color.decode("#006666"));
+    	sclSupplies.setForeground(Color.WHITE);
+    	sclSupplies.setOpaque(true);
+    	sclSupplies.setHorizontalAlignment(SwingConstants.CENTER);
+    	JLabel scSupply = new JLabel("150");
+    	scSupply.setBackground(Color.decode("#AFEEEE"));
+    	scSupply.setFont(new Font("Arial", Font.PLAIN, 75));
+    	scSupply.setHorizontalAlignment(SwingConstants.CENTER);
+    	scSupply.setForeground(Color.decode("#483D8B"));
+       	scpSupply.add(scSupply, BorderLayout.CENTER);
     	scpSupply.add(sclSupplies, BorderLayout.PAGE_END);
-    	scpOrder.add(sclOrders, BorderLayout.PAGE_END);
-    	scpProd.add(sclProduction, BorderLayout.PAGE_END);
+    	
+    	
+    	JLabel sclOrder = new JLabel("Orders");
+    	sclOrder.setHorizontalAlignment(SwingConstants.CENTER);
+    	sclOrder.setFont(new Font("Tahoma", Font.PLAIN, 18));
+    	sclOrder.setBackground(Color.decode("#006666"));
+    	sclOrder.setForeground(Color.WHITE);
+    	sclOrder.setOpaque(true);
+    	sclOrder.setHorizontalAlignment(SwingConstants.CENTER);
+    	JLabel scOrder = new JLabel("125");
+    	scOrder.setBackground(Color.decode("#AFEEEE"));
+    	scOrder.setFont(new Font("Arial", Font.PLAIN, 75));
+    	scOrder.setHorizontalAlignment(SwingConstants.CENTER);
+    	scOrder.setForeground(Color.decode("#FF8C00"));
+    	scpOrder.add(scOrder, BorderLayout.CENTER);
+    	scpOrder.add(sclOrder, BorderLayout.PAGE_END);
+    	
+    	JLabel sclProd = new JLabel("Production Plans");  
+    	sclProd.setHorizontalAlignment(SwingConstants.CENTER);
+    	sclProd.setHorizontalAlignment(SwingConstants.CENTER);
+    	sclProd.setFont(new Font("Tahoma", Font.PLAIN, 18));
+    	sclProd.setBackground(Color.decode("#006666"));
+    	sclProd.setForeground(Color.WHITE);
+    	sclProd.setOpaque(true);
+    	sclProd.setHorizontalAlignment(SwingConstants.CENTER);
+    	JLabel scProd = new JLabel("10");
+    	scProd.setFont(new Font("Arial", Font.PLAIN, 75));
+    	scProd.setHorizontalAlignment(SwingConstants.CENTER);
+    	scProd.setForeground(Color.decode("#B8860B"));
+    	scpProd.add(scProd, BorderLayout.CENTER);
+    	scpProd.add(sclProd, BorderLayout.PAGE_END);
+    	
     	
        	//Create Panel for Bottom (Adding Buttons for Operations)               
 	    JPanel bp = new JPanel();
@@ -141,7 +205,7 @@ public class MainMenuHelper extends JDialog
 	    //Set global UI settings for Menu and Menu Bar
 	    UIManager.put("MenuBar.background", Color.decode("#D2B48C"));
         UIManager.put("Menu.background", Color.gray);
-        UIManager.put("MenuItem.background", Color.decode("#B0C4DE"));       
+        UIManager.put("MenuItem.background", Color.decode("#FFDAB9"));       
 
         //creating the Menu and corresponding Menu Items
         menu=new JMenuBar();    
@@ -149,10 +213,10 @@ public class MainMenuHelper extends JDialog
         x = new JMenu("CREATE"); d1 = new JMenuItem("VENDOR"); d2 = new JMenuItem("PRODUCT");d3 = new JMenuItem("PART");
         x.add(d1); x.add(d2); x.add(d3);    
         v = new JMenu("VIEW");v1 = new JMenuItem("VENDOR"); v2 = new JMenuItem("PRODUCT");v3 = new JMenuItem("PART");v4 = new JMenuItem("BILL OF MATERIALS");
-        	v5 = new JMenuItem("SUPPLY OF MATERIALS");
-        v.add(v1); v.add(v2); v.add(v3); v.add(v4);v.add(v5);      
-        y = new JMenu("PLAN"); p1 = new JMenuItem("BILL OF MATERIALS");p2 = new JMenuItem("SUPPLY OF MATERIALS");p3 = new JMenuItem("BILL OF MATERIALS(BOM)");
-        y.add(p1); y.add(p2); //y.add(m6);     
+        	v5 = new JMenuItem("SUPPLY OF MATERIALS");v6 = new JMenuItem("PRODUCTION BATCHES");
+        v.add(v1); v.add(v2); v.add(v3); v.add(v4);v.add(v5);v.add(v6);      
+        y = new JMenu("PLAN"); p1 = new JMenuItem("BILL OF MATERIALS");p2 = new JMenuItem("SUPPLY OF MATERIALS");p3 = new JMenuItem("PRODUCTION BATCH");
+        y.add(p1); y.add(p2); y.add(p3);     
         z = new JMenu("MANAGE"); m1 = new JMenuItem("VENDOR"); m2 = new JMenuItem("PRODUCT"); m3 = new JMenuItem("PART");
         z.add(m1); z.add(m2); z.add(m3);
         e = new JMenu("GENERATE");r1 = new JMenuItem("VENDOR LIST"); r2 = new JMenuItem("PURCHASE ORDERS");//r3 = new JMenuItem("PRINT INVOICE");
@@ -267,6 +331,18 @@ public class MainMenuHelper extends JDialog
             }
         }); //End of View->Supplies
         
+        v6.addActionListener(new ActionListener() 
+        {     	 
+            public void actionPerformed(ActionEvent e) 
+            {
+            	 System.out.println("You have chosen View->Production Batches !!!");
+             	 dispose();
+            	 ProdCycleUI vpcframe=new ProdCycleUI(parent1);
+            	 vpcframe.ProdCycleListAllUI();
+            	 vpcframe.setVisible(true);            	
+            }
+        }); //End of View->Supplies
+        
         //Define Action Listeners for each of the PLAN components 
         p1.addActionListener(new ActionListener() 
         {     	 
@@ -291,11 +367,22 @@ public class MainMenuHelper extends JDialog
             	 supframe.setVisible(true);            	
             }
         }); //End of Plan->Bill of Materials
+        
+        p3.addActionListener(new ActionListener() 
+        {     	 
+            public void actionPerformed(ActionEvent e) 
+            {
+            	 System.out.println("You have chosen Plan->Production !!!");
+             	 dispose();
+            	 ProdCycleUI pcframe=new ProdCycleUI(parent1);
+             	 pcframe.ProdCycleAddUI();
+            	 pcframe.setVisible(true);            	
+            }
+        }); //End of Plan->Production Cycle
                         
        //Construct the frame from the panels created for Top, Center and South        
         getContentPane().add(title, BorderLayout.PAGE_START);
         getContentPane().add(menupanel, BorderLayout.LINE_START);  
-        //getContentPane().add(scardpanel, BorderLayout.LINE_START);  
         getContentPane().add(bp, BorderLayout.PAGE_END);
         setResizable(false);
         pack();
