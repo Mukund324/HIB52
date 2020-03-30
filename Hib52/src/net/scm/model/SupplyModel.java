@@ -99,4 +99,18 @@ public class SupplyModel implements Serializable
 	public void setvendSupplyPrice(int vendSuppPrice ) {
 		this.vendSupplyPrice = vendSuppPrice;
 	}
+	
+	@Override
+    public String toString()
+	{
+		return(
+				"[ PartName="     +getpartName()          +", "+ 
+				"PartID="         +getpartId()            +", "+ 
+			    "VendorName="     +getvendId()            +", "+
+				"VendorID="       +getvendName()          +", "+
+			    "SupplyClass="    +getvendSupplyClass()   +", "+
+			    "SupplyLeadTime=" +getvendSupplyLeadTime()+", "+
+			    "SupplyPrice="    +getvendSupplyPrice()   +" ]"
+			  );
+	}
 }//End of Class 

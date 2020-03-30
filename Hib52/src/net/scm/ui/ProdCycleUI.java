@@ -57,7 +57,7 @@ public class ProdCycleUI extends JDialog
 		
 	public ProdCycleUI(JFrame parent)
 	{
-		super(parent, "Supply Chain Management", true);
+		super(parent, "Vendor Management System", true);
 		parent1=parent;
 	}
 	public void ProdCycleAddUI()
@@ -105,7 +105,7 @@ public class ProdCycleUI extends JDialog
 			
 	    //Production Cycle ID
 	    JLabel lbProdCycId = new JLabel("PRODUCTION BATCH ID");
-	    lbProdCycId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+	    lbProdCycId.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		GridBagConstraints gbc_lbProdCycId = new GridBagConstraints();
 		gbc_lbProdCycId.anchor = GridBagConstraints.EAST;
 		gbc_lbProdCycId.insets = new Insets(10, 10, 10, 5);
@@ -115,7 +115,7 @@ public class ProdCycleUI extends JDialog
 		
 		JTextField tfProdCycId = new JTextField();
 		tfProdCycId.setText(" ");
-		tfProdCycId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfProdCycId.setFont(new Font("Tahoma", Font.PLAIN,10));
 		tfProdCycId.setColumns(10);
 		GridBagConstraints gbc_ProdCycId = new GridBagConstraints();
 		gbc_ProdCycId.gridwidth = 1;
@@ -293,7 +293,29 @@ public class ProdCycleUI extends JDialog
 		gbc_ProdCycPriceCap.anchor = GridBagConstraints.NORTHWEST;
 		gbc_ProdCycPriceCap.gridx = 1;
 		gbc_ProdCycPriceCap.gridy = 11;
-		formpanel.add(tfProdCycPriceCap, gbc_ProdCycPriceCap);		
+		formpanel.add(tfProdCycPriceCap, gbc_ProdCycPriceCap);	
+		
+	    //Production Cycle Price Cap
+	    JLabel lbProdCycBatchSize = new JLabel("PRODUCTION BATCH SIZE");
+	    lbProdCycBatchSize.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lbProdCycBatchSize = new GridBagConstraints();
+		gbc_lbProdCycBatchSize.anchor = GridBagConstraints.EAST;
+		gbc_lbProdCycBatchSize.insets = new Insets(10, 10, 10, 5);
+		gbc_lbProdCycBatchSize.gridx = 0;
+		gbc_lbProdCycBatchSize.gridy = 13;
+		formpanel.add(lbProdCycBatchSize, gbc_lbProdCycBatchSize);
+		
+		JTextField tfProdCycBatchSize= new JTextField();
+		tfProdCycBatchSize.setText(" ");
+		tfProdCycBatchSize.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfProdCycBatchSize.setColumns(10);
+		GridBagConstraints gbc_ProdCycBatchSize = new GridBagConstraints();
+		gbc_ProdCycBatchSize.gridwidth = 2;
+		gbc_ProdCycBatchSize.insets = new Insets(10, 10, 10, 5);
+		gbc_ProdCycBatchSize.anchor = GridBagConstraints.NORTHWEST;
+		gbc_ProdCycBatchSize.gridx = 1;
+		gbc_ProdCycBatchSize.gridy = 13;
+		formpanel.add(tfProdCycBatchSize, gbc_ProdCycBatchSize);	
 		
 		tfProdCycProd.addActionListener(new ActionListener() 
 		{       	 
@@ -362,8 +384,8 @@ public class ProdCycleUI extends JDialog
         		prodcycModel.setprodcycClass(tfProdCycClass.getSelectedItem().toString());
         		prodcycModel.setprodcycStDt(selStDt);
         		prodcycModel.setprodcycCapPrice(Integer.parseInt(tfProdCycPriceCap.getText()));
+        		prodcycModel.setprodcycBatchSize(Integer.parseInt(tfProdCycBatchSize.getText()));
 
-        		
         		session.save(prodcycModel);
         		tr.commit();
         		System.out.println("Successfully inserted ProductionCycle Info");	        		

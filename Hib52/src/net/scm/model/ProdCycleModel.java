@@ -44,6 +44,9 @@ public class ProdCycleModel implements Serializable
 	@Column(name="prodcyc_cap_price")
 	private int  prodcycCapPrice;	
 	
+	@Column(name="prodcyc_batch_size")
+	private int  prodcycBatchSize;	
+	
 	//Generated ID set/get method 
 	public int getId() {
 		return id;
@@ -104,5 +107,12 @@ public class ProdCycleModel implements Serializable
 	}
 	public void setprodcycCapPrice(int prodcycCapPrice) {
 		this.prodcycCapPrice = prodcycCapPrice;
+	}	
+	//bomPartQty set/get method
+	public int getprodcycBatchSize() {
+		return prodcycBatchSize;
+	}
+	public void setprodcycBatchSize(int prodcycBatchSize) {
+		this.prodcycBatchSize = prodcycBatchSize;
 	}
 }//End of CLass

@@ -11,11 +11,11 @@ public class ProdCycleTableModel extends AbstractTableModel
 	private final List<ProdCycleModel> pcList;
 	private final String[] columnNames = new String[] 
 	{
-		"BATCH NAME", "BATCH ID",  "PRODUCT", "PRODUCT ID", "CLASS","START-DATE","CAP-PRICE"
+		"BATCH NAME", "BATCH ID",  "PRODUCT", "PRODUCT ID", "CLASS","START-DATE","CAP-PRICE", "BATCH SIZE"
     };
 	private final Class[] columnClass = new Class[] 
 	{
-	  String.class, String.class, String.class, String.class, String.class,Date.class,Integer.class
+	  String.class, String.class, String.class, String.class, String.class,Date.class,Integer.class,Integer.class
 	};
 	
 	 public ProdCycleTableModel(List<ProdCycleModel> pcList)
@@ -62,6 +62,9 @@ public class ProdCycleTableModel extends AbstractTableModel
 	        }
 	        else if(6 == columnIndex) {
 	            return row.getprodcycCapPrice();
+	        }
+	        else if(7 == columnIndex) {
+	            return row.getprodcycBatchSize();
 	        }
 	        return null;
 	    }

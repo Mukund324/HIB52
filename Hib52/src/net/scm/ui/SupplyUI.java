@@ -87,7 +87,7 @@ public class SupplyUI extends JDialog {
 	
 	public SupplyUI(JFrame parent)
 	{
-		super(parent, "Supply Chain Management", true);
+		super(parent, "Vendor Management System", true);
 		parent1=parent;
 	}//End of Constructor 
 	

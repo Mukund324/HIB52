@@ -69,7 +69,7 @@ public class PartUI extends JDialog
 	
 	public PartUI(JFrame parent)
 	{
-		super(parent, "Supply Chain Management", true);
+		super(parent, "Vendor Management System", true);
 		parent1=parent;
 	}
 	public void PartAddUI()

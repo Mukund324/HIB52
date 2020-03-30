@@ -78,7 +78,7 @@ public class BoMUI extends JDialog {
 	
 	public BoMUI(JFrame parent)
 	{
-		super(parent, "Supply Chain Management", true);
+		super(parent, "Vendor Management System", true);
 		parent1=parent;
 	}//End of Constructor 
 	

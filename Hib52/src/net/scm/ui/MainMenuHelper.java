@@ -1,12 +1,25 @@
-package net.scm.ui;
+ package net.scm.ui;
+
+import net.scm.model.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import net.scm.model.HibernateUtil;
+import net.scm.model.PartModel;
+import net.scm.model.ProductModel;
+import net.scm.model.SupplyModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.List;
 
 public class MainMenuHelper extends JDialog
 {
@@ -17,12 +30,14 @@ public class MainMenuHelper extends JDialog
     static JMenuItem d1,d2,d3, p1,p2,p3, m1,m2,m3, r1,r2,r3, a1,a2,a3, v1,v2,v3,v4,v5,v6;
     
 	public JFrame parent1;
-	public Integer countProduct;
-	public Integer countVendor;
-	public Integer countPart;
+	public Session session;
+	public Integer countProducts;
+	public Integer countVendors;
+	public Integer countParts;
 	public Integer countSupplies;
 	public Integer countProdCycles;
 	public Integer countOrders;
+	public Integer countBoms;
 	
 	public MainMenuHelper(JFrame parent)
 	{
@@ -59,58 +74,111 @@ public class MainMenuHelper extends JDialog
     	scardpanel1.setBorder(BorderFactory.createEmptyBorder(10, 5,0, 5));
     	scardpanel.add(scardpanel1, BorderLayout.PAGE_START);
     	JPanel scpProduct = new JPanel(new BorderLayout());
-    	scpProduct.setBackground(Color.decode("#AFEEEE"));
+    	scpProduct.setBackground(Color.decode("#E0FFFF"));
     	scpProduct.setPreferredSize(new Dimension(200, 150));
     	scpProduct.setOpaque(true);
     	scardpanel1.add(scpProduct, BorderLayout.LINE_START);
     	JPanel scpVendor = new JPanel(new BorderLayout());
-    	scpVendor.setBackground(Color.decode("#AFEEEE"));
+    	scpVendor.setBackground(Color.decode("#E0FFFF"));
     	scpVendor.setPreferredSize(new Dimension(200, 150));
     	scpVendor.setOpaque(true);
     	//scpVendor.setBorder(eBorder);
     	scardpanel1.add(scpVendor, BorderLayout.CENTER);
     	JPanel scpPart = new JPanel(new BorderLayout());
-    	scpPart.setBackground(Color.decode("#AFEEEE"));
+    	scpPart.setBackground(Color.decode("#E0FFFF"));
     	scpPart.setPreferredSize(new Dimension(200, 150));
     	scpPart.setOpaque(true);
     	//scpPart.setBorder(eBorder);
-    	scardpanel1.add(scpPart, BorderLayout.LINE_END);    	
+    	scardpanel1.add(scpPart, BorderLayout.LINE_END);  
     	
-    	JLabel sclProduct = new JLabel("Products");
+    	countProducts=2;
+    	countVendors=3;
+    	countParts=4;
+    	countSupplies=5;
+    	countProdCycles=6;
+    	countOrders=7;
+    	countBoms=8;
+
+    	
+    	{
+        /*	List<ProductModel> Products;
+        	List<VendorModel> Vendors;
+    		List<PartModel> Parts;
+    		List<BoMModel> Boms; 		
+        	List<SupplyModel> Supplies;
+        	List<ProdCycleModel> ProdCycles;
+
+    		SessionFactory sessFact = HibernateUtil.getSessionFactory();
+    		session = sessFact.getCurrentSession();
+    		org.hibernate.Transaction tr = session.beginTransaction();
+			Criteria criteria1 = session.createCriteria(ProductModel.class);
+			Products = criteria1.list();
+			Criteria criteria2 = session.createCriteria(VendorModel.class);
+			Vendors = criteria2.list();
+			Criteria criteria3 = session.createCriteria(PartModel.class);
+			Parts = criteria3.list();
+			Criteria criteria4 = session.createCriteria(BoMModel.class);
+			Boms = criteria4.list();
+			Criteria criteria5 = session.createCriteria(SupplyModel.class);
+			Supplies = criteria5.list();
+			Criteria criteria6 = session.createCriteria(ProdCycleModel.class);
+			ProdCycles = criteria6.list();			
+    		tr.commit();
+    		//sessFact.close();
+    		System.out.println("Data Fetched from tables for Dashboard");
+
+            ProductTableModel model1 = new ProductTableModel(Products);
+            countProducts = model1.getRowCount();
+            VendorTableModel model2 = new VendorTableModel(Vendors);
+            countVendors= model2.getRowCount();
+            PartTableModel model3 = new PartTableModel(Parts);
+            countParts = model3.getRowCount();
+            BoMTableModel model4 = new BoMTableModel(Boms);
+            countBoms = model4.getRowCount();
+            SupplyTableModel model5 = new SupplyTableModel(Supplies);
+            countSupplies = model5.getRowCount();
+            ProdCycleTableModel model6 = new ProdCycleTableModel(ProdCycles);
+            countProdCycles = model6.getRowCount();
+            */
+    	 } 
+    	
+
+    	
+    	JLabel sclProduct = new JLabel("#Products");
     	sclProduct.setHorizontalAlignment(SwingConstants.CENTER);
     	sclProduct.setFont(new Font("Tahoma", Font.PLAIN, 18));
     	sclProduct.setBackground(Color.decode("#006666"));
     	sclProduct.setForeground(Color.WHITE);
     	sclProduct.setOpaque(true);
-    	JLabel scProduct = new JLabel("5");
+    	JLabel scProduct = new JLabel(Integer.toString(countProducts));
     	scProduct.setFont(new Font("Arial", Font.PLAIN, 75));
     	scProduct.setHorizontalAlignment(SwingConstants.CENTER);
     	scProduct.setForeground(Color.decode("#CD5C5C"));
     	scpProduct.add(sclProduct, BorderLayout.PAGE_END);
     	scpProduct.add(scProduct, BorderLayout.CENTER);
     	
-    	JLabel sclVendor = new JLabel("Vendor");
+    	JLabel sclVendor = new JLabel("#Vendors");
     	sclVendor.setHorizontalAlignment(SwingConstants.CENTER);
     	sclVendor.setFont(new Font("Tahoma", Font.PLAIN, 18));
     	sclVendor.setBackground(Color.decode("#006666"));
     	sclVendor.setForeground(Color.WHITE);
     	sclVendor.setOpaque(true);
     	sclVendor.setHorizontalAlignment(SwingConstants.CENTER);
-    	JLabel scVendor = new JLabel("20");
+    	JLabel scVendor = new JLabel(Integer.toString(countVendors));
     	scVendor.setFont(new Font("Arial", Font.PLAIN, 75));
     	scVendor.setHorizontalAlignment(SwingConstants.CENTER);
     	scVendor.setForeground(Color.decode("#800000"));
     	scpVendor.add(scVendor, BorderLayout.CENTER);
     	scpVendor.add(sclVendor, BorderLayout.PAGE_END);
     	
-    	JLabel sclPart = new JLabel("Parts");
+    	JLabel sclPart = new JLabel("#Parts");
     	sclPart.setHorizontalAlignment(SwingConstants.CENTER);
     	sclPart.setFont(new Font("Tahoma", Font.PLAIN, 18));
     	sclPart.setBackground(Color.decode("#006666"));
     	sclPart.setForeground(Color.WHITE);
     	sclPart.setOpaque(true);
     	sclPart.setHorizontalAlignment(SwingConstants.CENTER);
-    	JLabel scPart = new JLabel("50");
+    	JLabel scPart = new JLabel(Integer.toString(countParts));
     	scPart.setFont(new Font("Arial", Font.PLAIN, 75));
     	scPart.setHorizontalAlignment(SwingConstants.CENTER);
     	scPart.setForeground(Color.decode("#006400"));
@@ -126,29 +194,29 @@ public class MainMenuHelper extends JDialog
     	scardpanel.add(scardpanel2, BorderLayout.PAGE_END);
     	
     	JPanel scpSupply = new JPanel(new BorderLayout());
-    	scpSupply.setBackground(Color.decode("#AFEEEE"));
+    	scpSupply.setBackground(Color.decode("#E0FFFF"));
     	scpSupply.setPreferredSize(new Dimension(200, 150));
     	scpSupply.setOpaque(true);
     	scardpanel2.add(scpSupply, BorderLayout.LINE_START);
     	JPanel scpOrder = new JPanel(new BorderLayout());
-    	scpOrder.setBackground(Color.decode("#AFEEEE"));
+    	scpOrder.setBackground(Color.decode("#E0FFFF"));
     	scpOrder.setPreferredSize(new Dimension(200, 150));
     	scpOrder.setOpaque(true);
     	scardpanel2.add(scpOrder, BorderLayout.CENTER);
     	JPanel scpProd = new JPanel(new BorderLayout());
-    	scpProd.setBackground(Color.decode("#AFEEEE"));
+    	scpProd.setBackground(Color.decode("#E0FFFF"));
     	scpProd.setPreferredSize(new Dimension(200, 150));
     	scpProd.setOpaque(true);
     	scardpanel2.add(scpProd, BorderLayout.LINE_END);    
     	
-    	JLabel sclSupplies = new JLabel("Supplies");
+    	JLabel sclSupplies = new JLabel("#Supplies");
     	sclSupplies.setHorizontalAlignment(SwingConstants.CENTER);
     	sclSupplies.setFont(new Font("Tahoma", Font.PLAIN, 18));
     	sclSupplies.setBackground(Color.decode("#006666"));
     	sclSupplies.setForeground(Color.WHITE);
     	sclSupplies.setOpaque(true);
     	sclSupplies.setHorizontalAlignment(SwingConstants.CENTER);
-    	JLabel scSupply = new JLabel("150");
+    	JLabel scSupply = new JLabel(Integer.toString(countSupplies));
     	scSupply.setBackground(Color.decode("#AFEEEE"));
     	scSupply.setFont(new Font("Arial", Font.PLAIN, 75));
     	scSupply.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,14 +225,14 @@ public class MainMenuHelper extends JDialog
     	scpSupply.add(sclSupplies, BorderLayout.PAGE_END);
     	
     	
-    	JLabel sclOrder = new JLabel("Orders");
+    	JLabel sclOrder = new JLabel("#Bills of Material");
     	sclOrder.setHorizontalAlignment(SwingConstants.CENTER);
     	sclOrder.setFont(new Font("Tahoma", Font.PLAIN, 18));
     	sclOrder.setBackground(Color.decode("#006666"));
     	sclOrder.setForeground(Color.WHITE);
     	sclOrder.setOpaque(true);
     	sclOrder.setHorizontalAlignment(SwingConstants.CENTER);
-    	JLabel scOrder = new JLabel("125");
+    	JLabel scOrder = new JLabel(Integer.toString(countBoms));
     	scOrder.setBackground(Color.decode("#AFEEEE"));
     	scOrder.setFont(new Font("Arial", Font.PLAIN, 75));
     	scOrder.setHorizontalAlignment(SwingConstants.CENTER);
@@ -172,7 +240,7 @@ public class MainMenuHelper extends JDialog
     	scpOrder.add(scOrder, BorderLayout.CENTER);
     	scpOrder.add(sclOrder, BorderLayout.PAGE_END);
     	
-    	JLabel sclProd = new JLabel("Production Plans");  
+    	JLabel sclProd = new JLabel("#Production Batches");  
     	sclProd.setHorizontalAlignment(SwingConstants.CENTER);
     	sclProd.setHorizontalAlignment(SwingConstants.CENTER);
     	sclProd.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -180,7 +248,7 @@ public class MainMenuHelper extends JDialog
     	sclProd.setForeground(Color.WHITE);
     	sclProd.setOpaque(true);
     	sclProd.setHorizontalAlignment(SwingConstants.CENTER);
-    	JLabel scProd = new JLabel("10");
+    	JLabel scProd = new JLabel(Integer.toString(countProdCycles));
     	scProd.setFont(new Font("Arial", Font.PLAIN, 75));
     	scProd.setHorizontalAlignment(SwingConstants.CENTER);
     	scProd.setForeground(Color.decode("#B8860B"));
@@ -218,10 +286,12 @@ public class MainMenuHelper extends JDialog
         y = new JMenu("PLAN"); p1 = new JMenuItem("BILL OF MATERIALS");p2 = new JMenuItem("SUPPLY OF MATERIALS");p3 = new JMenuItem("PRODUCTION BATCH");
         y.add(p1); y.add(p2); y.add(p3);     
         z = new JMenu("MANAGE"); m1 = new JMenuItem("VENDOR"); m2 = new JMenuItem("PRODUCT"); m3 = new JMenuItem("PART");
+        m1.setEnabled(false);m2.setEnabled(false);m3.setEnabled(false);
         z.add(m1); z.add(m2); z.add(m3);
-        e = new JMenu("GENERATE");r1 = new JMenuItem("VENDOR LIST"); r2 = new JMenuItem("PURCHASE ORDERS");//r3 = new JMenuItem("PRINT INVOICE");
+        e = new JMenu("GENERATE");r1 = new JMenuItem("ORDER LIST"); r2 = new JMenuItem("PURCHASE ORDERS");//r3 = new JMenuItem("PRINT INVOICE");
         e.add(r1); e.add(r2); //e.add(r3);
         f = new JMenu("ABOUT"); a1 = new JMenuItem("ABOUT SOFTWARE"); a2 = new JMenuItem("ABOUT DEVELOPER"); a3 = new JMenuItem("ABOUT COMPANY");
+        a1.setEnabled(false);a2.setEnabled(false);a3.setEnabled(false);
         f.add(a1); f.add(a2); f.add(a3);
         
         //Add the Menus to the menubar 
@@ -379,6 +449,19 @@ public class MainMenuHelper extends JDialog
             	 pcframe.setVisible(true);            	
             }
         }); //End of Plan->Production Cycle
+        
+        
+        r1.addActionListener(new ActionListener() 
+        {     	 
+            public void actionPerformed(ActionEvent e) 
+            {
+            	 System.out.println("You have chosen Generate->OrderList !!!");
+             	 dispose();
+            	 OrderListUI olframe=new OrderListUI(parent1);
+             	 olframe.OrderListGenUI();
+            	 olframe.setVisible(true);            	
+            }
+        }); //End of Generate->Order List
                         
        //Construct the frame from the panels created for Top, Center and South        
         getContentPane().add(title, BorderLayout.PAGE_START);

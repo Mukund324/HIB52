@@ -79,4 +79,16 @@ public class BoMModel implements Serializable
 	public void setbomPartQty(int bomPartQty) {
 		this.bomPartQty = bomPartQty;
 	}
+	
+	@Override
+    public String toString()
+	{
+		return(
+				"[ ProductName="+getbomProdName() +", "+ 
+				"ProductID="    +getbomProdId()   +", "+ 
+			    "PartID="       +getbomPartId()   +", "+
+				"PartName="     +getbomPartName() +", "+
+			    "PartQty="      +getbomPartQty()  +" ]"
+			  );
+	}
 }//End of CLass

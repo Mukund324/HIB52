@@ -57,7 +57,7 @@ public class VendorUI extends JDialog
 	
 	public VendorUI(JFrame parent)
 	{
-		super(parent, "Supply Chain Management", true);
+		super(parent, "Vendor Management System", true);
 		parent1=parent;
 	}
 	public void VendorAddUI()
