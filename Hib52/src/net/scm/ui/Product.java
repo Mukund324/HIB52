@@ -67,11 +67,11 @@ public class Product extends JDialog
     	JPanel title = new JPanel();
     	title.setBackground(Color.decode("#006666"));
     	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-	    title.setPreferredSize(new Dimension(640,30));
+	    title.setPreferredSize(new Dimension(720,30));
         title.setOpaque(true);
        	//Create Panel for Menu       
     	JPanel formpanel = new JPanel(new GridBagLayout());
-        formpanel.setPreferredSize(new Dimension(640, 400));   
+        formpanel.setPreferredSize(new Dimension(720, 400));   
 		formpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 		formpanel.setBackground(Color.white);
 		GridBagLayout gBL = new GridBagLayout();
@@ -83,12 +83,12 @@ public class Product extends JDialog
        	//Create Panel for Bottom (Adding Buttons for Operations)               
 	    JPanel bp = new JPanel();
         bp.setBackground(Color.decode("#87CEFA"));
-        bp.setPreferredSize(new Dimension(640, 40));  
+        bp.setPreferredSize(new Dimension(720, 40));  
     	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
         bp.setOpaque(true);
         
     	//Adding Components for the Title Panel    
-	    JLabel ltitle = new JLabel("Vendor Management Portal");
+	    JLabel ltitle = new JLabel("Vendor Management Portal >> Create >> Product");
 	    ltitle.setHorizontalAlignment(JLabel.CENTER);
 	    ltitle.setVerticalAlignment(JLabel.CENTER);
 	    ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));
@@ -311,7 +311,7 @@ public class Product extends JDialog
        		 */
     		}
     		tr.commit();
-    		System.out.println("Data displayed for Product");
+    		//System.out.println("Data displayed for Product");
 
     		//sessFact.close();
     	}
@@ -319,23 +319,23 @@ public class Product extends JDialog
     	JPanel title = new JPanel();
     	title.setBackground(Color.decode("#006666"));
     	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-	    title.setPreferredSize(new Dimension(640,30));
+	    title.setPreferredSize(new Dimension(720,30));
         title.setOpaque(true);
         
        	//Create Panel for Menu       
     	JPanel tblpanel = new JPanel(new BorderLayout());
-        tblpanel.setPreferredSize(new Dimension(640, 320));   
+        tblpanel.setPreferredSize(new Dimension(720, 320));   
 		tblpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 		tblpanel.setBackground(Color.white);
 		
        	//Create Panel for Bottom (Adding Buttons for Operations)               
 	    JPanel bp = new JPanel();
         bp.setBackground(Color.decode("#87CEFA"));
-        bp.setPreferredSize(new Dimension(640, 40));  
+        bp.setPreferredSize(new Dimension(720, 30));  
     	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
         bp.setOpaque(true);
         
-	    JLabel ltitle = new JLabel("Vendor Management Portal");
+	    JLabel ltitle = new JLabel("Vendor Management Portal >> View >> Products");
 	    ltitle.setHorizontalAlignment(JLabel.CENTER);
 	    ltitle.setVerticalAlignment(JLabel.CENTER);
 	    ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));
@@ -347,7 +347,7 @@ public class Product extends JDialog
         hp.setLayout(new BorderLayout());
             	
        	JLabel lblHeading = new JLabel("List of Products", SwingConstants.CENTER);
-       	lblHeading.setFont(new Font("Arial",Font.TRUETYPE_FONT,24));
+       	lblHeading.setFont(new Font("Arial",Font.TRUETYPE_FONT,15));
        	lblHeading.setForeground (Color.green);
        	lblHeading.setBackground (Color.white);
        	lblHeading.setOpaque(true); 
@@ -369,7 +369,7 @@ public class Product extends JDialog
     	tblpanel.add(table, BorderLayout.CENTER);
     	tblpanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
         JScrollPane scrlpane = new JScrollPane(table);
-        scrlpane.setSize(new Dimension(640,320));
+        scrlpane.setSize(new Dimension(720,320));
         scrlpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrlpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         tblpanel.add(scrlpane, BorderLayout.CENTER);     

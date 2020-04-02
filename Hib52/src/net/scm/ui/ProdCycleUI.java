@@ -67,12 +67,12 @@ public class ProdCycleUI extends JDialog
 	    JPanel title = new JPanel();
 	    title.setBackground(Color.decode("#006666"));
 	    title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-		title.setPreferredSize(new Dimension(640,30));
+		title.setPreferredSize(new Dimension(720,30));
 	    title.setOpaque(true);
 
 	    //Create Panel for Menu       
 	    JPanel formpanel = new JPanel(new GridBagLayout());
-	    formpanel.setPreferredSize(new Dimension(640, 400));   
+	    formpanel.setPreferredSize(new Dimension(720, 400));   
 	    formpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 		formpanel.setBackground(Color.white);
 		GridBagLayout gBL = new GridBagLayout();
@@ -84,12 +84,12 @@ public class ProdCycleUI extends JDialog
 		//Create Panel for Bottom (Adding Buttons for Operations)               
 		JPanel bp = new JPanel();
 	    bp.setBackground(Color.decode("#87CEFA"));
-	    bp.setPreferredSize(new Dimension(640, 40));  
+	    bp.setPreferredSize(new Dimension(720, 40));  
 	    bp.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 	    bp.setOpaque(true);
 	   
 	    //Adding Components for the Title Panel    
-		JLabel ltitle = new JLabel("Vendor Management Portal");
+		JLabel ltitle = new JLabel("Vendor Management Portal Plan >> Production Batch");
 		ltitle.setHorizontalAlignment(JLabel.CENTER);
 		ltitle.setVerticalAlignment(JLabel.CENTER);
 		ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));
@@ -105,7 +105,7 @@ public class ProdCycleUI extends JDialog
 			
 	    //Production Cycle ID
 	    JLabel lbProdCycId = new JLabel("PRODUCTION BATCH ID");
-	    lbProdCycId.setFont(new Font("Tahoma", Font.PLAIN, 10));
+	    lbProdCycId.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lbProdCycId = new GridBagConstraints();
 		gbc_lbProdCycId.anchor = GridBagConstraints.EAST;
 		gbc_lbProdCycId.insets = new Insets(10, 10, 10, 5);
@@ -263,7 +263,7 @@ public class ProdCycleUI extends JDialog
 		
 		JComboBox tfProdCycClass = new JComboBox();
 		tfProdCycClass.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfProdCycClass.setModel(new DefaultComboBoxModel(new String[] {"Others", "Gold", "Silver", "Bronze"}));
+		tfProdCycClass.setModel(new DefaultComboBoxModel(new String[] {"--", "Gold", "Silver"}));
 		tfProdCycClass.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_ProdCycClass = new GridBagConstraints();
 		gbc_ProdCycClass.gridwidth = 2;
@@ -383,8 +383,8 @@ public class ProdCycleUI extends JDialog
         		prodcycModel.setprodcycProdId("PID101");	
         		prodcycModel.setprodcycClass(tfProdCycClass.getSelectedItem().toString());
         		prodcycModel.setprodcycStDt(selStDt);
-        		prodcycModel.setprodcycCapPrice(Integer.parseInt(tfProdCycPriceCap.getText()));
-        		prodcycModel.setprodcycBatchSize(Integer.parseInt(tfProdCycBatchSize.getText()));
+        		prodcycModel.setprodcycCapPrice(Integer.parseInt(tfProdCycPriceCap.getText().trim()));
+        		prodcycModel.setprodcycBatchSize(Integer.parseInt(tfProdCycBatchSize.getText().trim()));
 
         		session.save(prodcycModel);
         		tr.commit();
@@ -440,23 +440,23 @@ public class ProdCycleUI extends JDialog
 	    	JPanel title = new JPanel();
 	    	title.setBackground(Color.decode("#006666"));
 	    	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-		    title.setPreferredSize(new Dimension(640,30));
+		    title.setPreferredSize(new Dimension(720,30));
 	        title.setOpaque(true);
 	        
 	       	//Create Panel for Menu       
 	    	JPanel tblpanel = new JPanel(new BorderLayout());
-	        tblpanel.setPreferredSize(new Dimension(640, 320));   
+	        tblpanel.setPreferredSize(new Dimension(720, 320));   
 			tblpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 			tblpanel.setBackground(Color.white);
 			
 	       	//Create Panel for Bottom (Adding Buttons for Operations)               
 		    JPanel bp = new JPanel();
 	        bp.setBackground(Color.decode("#87CEFA"));
-	        bp.setPreferredSize(new Dimension(640, 40));  
+	        bp.setPreferredSize(new Dimension(720, 40));  
 	    	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 	        bp.setOpaque(true);
 	        
-		    JLabel ltitle = new JLabel("Vendor Management Portal");
+		    JLabel ltitle = new JLabel("Vendor Management Portal >> View >> Production Batches");
 		    ltitle.setHorizontalAlignment(JLabel.CENTER);
 		    ltitle.setVerticalAlignment(JLabel.CENTER);
 		    ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));
@@ -490,7 +490,7 @@ public class ProdCycleUI extends JDialog
 	    	tblpanel.add(table, BorderLayout.CENTER);
 	    	tblpanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
 	        JScrollPane scrlpane = new JScrollPane(table);
-	        scrlpane.setSize(new Dimension(640,320));
+	        scrlpane.setSize(new Dimension(720,320));
 	        scrlpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 	        scrlpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	        tblpanel.add(scrlpane, BorderLayout.CENTER);     

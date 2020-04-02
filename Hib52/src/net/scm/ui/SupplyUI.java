@@ -98,14 +98,14 @@ public class SupplyUI extends JDialog {
     	JPanel title = new JPanel();
     	title.setBackground(Color.decode("#006666"));
     	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-	    title.setPreferredSize(new Dimension(640,30));
+	    title.setPreferredSize(new Dimension(800,30));
         title.setOpaque(true);
 
     	//Create Panel for Menu       
     	JPanel formpanel = new JPanel(new GridBagLayout());
-        formpanel.setPreferredSize(new Dimension(300, 400));
-        formpanel.setMaximumSize(new Dimension(300, 400));
-        formpanel.setMinimumSize(new Dimension(300, 400));
+        formpanel.setPreferredSize(new Dimension(400, 400));
+        formpanel.setMaximumSize(new Dimension(400, 400));
+        formpanel.setMinimumSize(new Dimension(400, 400));
 		formpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 		formpanel.setBackground(Color.white);
 		GridBagLayout gBL = new GridBagLayout();
@@ -115,9 +115,9 @@ public class SupplyUI extends JDialog {
 		gBL.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		
     	JPanel pformpanel = new JPanel(new GridBagLayout());
-        pformpanel.setPreferredSize(new Dimension(340, 400));
-        pformpanel.setMaximumSize(new Dimension(340, 400));
-        pformpanel.setMinimumSize(new Dimension(340, 400));
+        pformpanel.setPreferredSize(new Dimension(400, 400));
+        pformpanel.setMaximumSize(new Dimension(400, 400));
+        pformpanel.setMinimumSize(new Dimension(400, 400));
 		pformpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 		pformpanel.setBackground(Color.white);
 		GridBagLayout pgBL = new GridBagLayout();
@@ -129,12 +129,12 @@ public class SupplyUI extends JDialog {
 	 	//Create Panel for Bottom (Adding Buttons for Operations)               
 	    JPanel bp = new JPanel();
         bp.setBackground(Color.decode("#87CEFA"));
-        bp.setPreferredSize(new Dimension(640, 40));  
+        bp.setPreferredSize(new Dimension(800, 40));  
         bp.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
         bp.setOpaque(true);
    
 		//Adding Components for the Title Panel    
-	    JLabel ltitle = new JLabel("Vendor Management Portal");
+	    JLabel ltitle = new JLabel("Vendor Management Portal >> Plan >> Supply Of Materials");
 	    ltitle.setHorizontalAlignment(JLabel.CENTER);
 	    ltitle.setVerticalAlignment(JLabel.CENTER);
 	    ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));
@@ -149,9 +149,11 @@ public class SupplyUI extends JDialog {
 	    bp.add(btnMenu);
 	    
 		JLabel lblPartName = new JLabel("Select Part");
-		lblPartName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPartName.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblPartName = new GridBagConstraints();
-		gbc_lblPartName.anchor = GridBagConstraints.EAST;
+		gbc_lblPartName.gridwidth = 2;
+		gbc_lblPartName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblPartName.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblPartName.insets = new Insets(10, 10, 10, 5);
 		gbc_lblPartName.gridx = 0;
 		gbc_lblPartName.gridy = 1;
@@ -181,19 +183,19 @@ public class SupplyUI extends JDialog {
         partNameList.toArray(partStrArr );
 		
 	    JComboBox<String> tfPartName = new JComboBox<String>();
-		tfPartName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfPartName.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tfPartName.setModel(new DefaultComboBoxModel<String>(partStrArr));
 		GridBagConstraints gbc_tfPartName = new GridBagConstraints();
 		gbc_tfPartName.gridwidth = 2;
 		gbc_tfPartName.insets = new Insets(10, 10, 10, 5);
 		gbc_tfPartName.anchor = GridBagConstraints.NORTHWEST;
-		gbc_tfPartName.gridx = 1;
-		gbc_tfPartName.gridy = 1;
+		gbc_tfPartName.gridx =0;
+		gbc_tfPartName.gridy =2;
 		formpanel.add(tfPartName, gbc_tfPartName);
 		
 		
 		JLabel lblVendName = new JLabel("Select Vendor to Add");
-		lblVendName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblVendName.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblVendName = new GridBagConstraints();
 		gbc_lblVendName.anchor = GridBagConstraints.EAST;
 		gbc_lblVendName.insets = new Insets(10, 10, 10, 5);
@@ -221,14 +223,14 @@ public class SupplyUI extends JDialog {
         vendNameList.toArray(vendStrArr );
         
 	    JComboBox<String> tfVendName = new JComboBox<String>();
-		tfVendName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfVendName.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tfVendName.setModel(new DefaultComboBoxModel<String>(vendStrArr));
 		GridBagConstraints gbc_vendName = new GridBagConstraints();
 		gbc_vendName.gridwidth = 2;
 		gbc_vendName.insets = new Insets(10, 10, 10, 5);
 		gbc_vendName.anchor = GridBagConstraints.NORTHWEST;
-		gbc_vendName.gridx = 1;
-		gbc_vendName.gridy = 1;
+		gbc_vendName.gridx = 0;
+		gbc_vendName.gridy = 2;
 		pformpanel.add(tfVendName, gbc_vendName);
 		
 		
@@ -257,7 +259,7 @@ public class SupplyUI extends JDialog {
                 tr.commit();
                 
                 JLabel lblPartID = new JLabel("Product ID");
-        		lblPartID.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		lblPartID.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblPartID = new GridBagConstraints();
         		gbc_lblPartID.anchor = GridBagConstraints.EAST;
         		gbc_lblPartID.insets = new Insets(10, 10, 10, 5);
@@ -267,7 +269,7 @@ public class SupplyUI extends JDialog {
         		
         		JLabel flblPartID = new JLabel(part.getpartId());
         		insPartId = part.getpartId();
-        		flblPartID.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		flblPartID.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_flblPartID = new GridBagConstraints();
         		gbc_flblPartID.anchor = GridBagConstraints.NORTHWEST;
         		gbc_flblPartID.insets = new Insets(10, 10, 10, 5);
@@ -276,7 +278,7 @@ public class SupplyUI extends JDialog {
         		formpanel.add(flblPartID, gbc_flblPartID);
         		
         		JLabel lblPartProfile = new JLabel("Profile");
-        		lblPartProfile.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		lblPartProfile.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblPartProfile = new GridBagConstraints();
         		gbc_lblPartProfile.anchor = GridBagConstraints.EAST;
         		gbc_lblPartProfile.insets = new Insets(10, 10, 10, 5);
@@ -285,7 +287,7 @@ public class SupplyUI extends JDialog {
         		formpanel.add(lblPartProfile, gbc_lblPartProfile);
         		
         		JLabel flblPartProfile = new JLabel(part.getpartProf());
-        		flblPartProfile.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		flblPartProfile.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_flblPartProfile = new GridBagConstraints();
         		gbc_flblPartProfile.anchor = GridBagConstraints.NORTHWEST;
         		gbc_flblPartProfile.insets = new Insets(10, 10, 10, 5);
@@ -294,7 +296,7 @@ public class SupplyUI extends JDialog {
         		formpanel.add(flblPartProfile, gbc_flblPartProfile);
         		
         		JLabel lblPartSpec = new JLabel("Specification");
-        		lblPartSpec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		lblPartSpec.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblPartSpec = new GridBagConstraints();
         		gbc_lblPartSpec.anchor = GridBagConstraints.EAST;
         		gbc_lblPartSpec.insets = new Insets(10, 10, 10, 5);
@@ -303,7 +305,7 @@ public class SupplyUI extends JDialog {
         		formpanel.add(lblPartSpec, gbc_lblPartSpec);
         		
            		JLabel flblPartSpec = new JLabel(part.getpartSpec());
-        		flblPartSpec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		flblPartSpec.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_flblPartSpec = new GridBagConstraints();
         		gbc_flblPartSpec.anchor = GridBagConstraints.NORTHWEST;
         		gbc_flblPartSpec.insets = new Insets(10, 10, 10, 5);
@@ -312,7 +314,7 @@ public class SupplyUI extends JDialog {
         		formpanel.add(flblPartSpec, gbc_flblPartSpec);
         		
         		JLabel lblPartMat = new JLabel("Material");
-        		lblPartMat.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		lblPartMat.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblPartMat = new GridBagConstraints();
         		gbc_lblPartMat.anchor = GridBagConstraints.EAST;
         		gbc_lblPartMat.insets = new Insets(10, 10, 10, 5);
@@ -321,7 +323,7 @@ public class SupplyUI extends JDialog {
         		formpanel.add(lblPartMat, gbc_lblPartMat);
         		
         		JLabel flblPartMat = new JLabel(part.getpartMaterial());
-        		flblPartMat.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		flblPartMat.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_flblPartMat = new GridBagConstraints();
         		gbc_flblPartMat.anchor = GridBagConstraints.NORTHWEST;
         		gbc_flblPartMat.insets = new Insets(10, 10, 10, 5);
@@ -331,7 +333,7 @@ public class SupplyUI extends JDialog {
         		
         		//Typical Delivery Schedule 
         	    JLabel lblPartTypDlvTime = new JLabel("Typical Delivery Time");
-        	    lblPartTypDlvTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        	    lblPartTypDlvTime.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblPartTypDlvTime = new GridBagConstraints();
         		gbc_lblPartTypDlvTime.anchor = GridBagConstraints.EAST;
         		gbc_lblPartTypDlvTime.insets = new Insets(10, 10, 10, 5);
@@ -340,7 +342,7 @@ public class SupplyUI extends JDialog {
         		formpanel.add(lblPartTypDlvTime, gbc_lblPartTypDlvTime);
         		
         	    JLabel tflblPartTypDlvTime = new JLabel(Integer.toString(part.getpartTypSuppSch()));
-        	    tflblPartTypDlvTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        	    tflblPartTypDlvTime.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_tflblPartTypDlvTime = new GridBagConstraints();
         		gbc_tflblPartTypDlvTime.anchor = GridBagConstraints.NORTHWEST;
         		gbc_tflblPartTypDlvTime.insets = new Insets(10, 10, 10, 5);
@@ -350,7 +352,7 @@ public class SupplyUI extends JDialog {
         		
         		//Typical Price 
         	    JLabel lblPartTypPrice = new JLabel("Typical Price($)");
-        	    lblPartTypPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        	    lblPartTypPrice.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblPartTypPrice = new GridBagConstraints();
         		gbc_lblPartTypPrice.anchor = GridBagConstraints.EAST;
         		gbc_lblPartTypPrice.insets = new Insets(10, 10, 10, 5);
@@ -359,7 +361,7 @@ public class SupplyUI extends JDialog {
         		formpanel.add(lblPartTypPrice, gbc_lblPartTypPrice);
         		
            	    JLabel tflblPartTypPrice = new JLabel(Integer.toString(part.getpartTypPrice()));
-        	    tflblPartTypPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        	    tflblPartTypPrice.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_tflblPartTypPrice = new GridBagConstraints();
         		gbc_tflblPartTypPrice.anchor = GridBagConstraints.NORTHWEST;
         		gbc_tflblPartTypPrice.insets = new Insets(10, 10, 10, 5);
@@ -414,7 +416,7 @@ public class SupplyUI extends JDialog {
                 tr.commit();
                 
                 JLabel lblVendId = new JLabel("PartID");
-        		lblVendId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		lblVendId.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblVendId = new GridBagConstraints();
         		gbc_lblVendId.anchor = GridBagConstraints.EAST;
         		gbc_lblVendId.insets = new Insets(10, 10, 10, 5);
@@ -422,18 +424,20 @@ public class SupplyUI extends JDialog {
         		gbc_lblVendId.gridy = 3;
         		pformpanel.add(lblVendId, gbc_lblVendId);
         		
+        	
         		JLabel flblVendId = new JLabel(vendor.getvendId());
-        		insVendId = vendor.getvendId();
-        		flblVendId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		insVendId = vendor.getvendId().toString();
+        		flblVendId.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_flblVendId = new GridBagConstraints();
         		gbc_flblVendId.anchor = GridBagConstraints.NORTHWEST;
         		gbc_flblVendId.insets = new Insets(10, 10, 10, 5);
         		gbc_flblVendId.gridx = 1;
         		gbc_flblVendId.gridy = 3;
-        		pformpanel.add(flblVendId, gbc_flblVendId);
+        		pformpanel.add(flblVendId, gbc_flblVendId); 
+        
                 
         		JLabel lblVendAddr = new JLabel("Address");
-        		lblVendAddr.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		lblVendAddr.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblVendAddr = new GridBagConstraints();
         		gbc_lblVendAddr.anchor = GridBagConstraints.EAST;
         		gbc_lblVendAddr.insets = new Insets(10, 10, 10, 5);
@@ -442,7 +446,7 @@ public class SupplyUI extends JDialog {
         		pformpanel.add(lblVendAddr, gbc_lblVendAddr);
         		
         		JLabel fVendAddr = new JLabel(vendor.getvendAddr1());
-        		fVendAddr.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		fVendAddr.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_fVendAddr = new GridBagConstraints();
         		gbc_fVendAddr.anchor = GridBagConstraints.NORTHWEST;
         		gbc_fVendAddr.insets = new Insets(10, 10, 10, 5);
@@ -451,7 +455,7 @@ public class SupplyUI extends JDialog {
         		pformpanel.add(fVendAddr, gbc_fVendAddr);
         		
         		JLabel lblVendCity = new JLabel("City");
-        		lblVendCity.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		lblVendCity.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblVendCity = new GridBagConstraints();
         		gbc_lblVendCity.anchor = GridBagConstraints.EAST;
         		gbc_lblVendCity.insets = new Insets(10, 10, 10, 5);
@@ -460,7 +464,7 @@ public class SupplyUI extends JDialog {
         		pformpanel.add(lblVendCity, gbc_lblVendCity);
         		
            		JLabel fVendCity = new JLabel(vendor.getvendCity());
-        		fVendCity.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		fVendCity.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_fVendCity = new GridBagConstraints();
         		gbc_fVendCity.anchor = GridBagConstraints.NORTHWEST;
         		gbc_fVendCity.insets = new Insets(10, 10, 10, 5);
@@ -469,7 +473,7 @@ public class SupplyUI extends JDialog {
         		pformpanel.add(fVendCity, gbc_fVendCity);
         		
         		JLabel lblVendCountry = new JLabel("Country");
-        		lblVendCountry.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		lblVendCountry.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblVendCountry = new GridBagConstraints();
         		gbc_lblVendCountry.anchor = GridBagConstraints.EAST;
         		gbc_lblVendCountry.insets = new Insets(10, 10, 10, 5);
@@ -478,7 +482,7 @@ public class SupplyUI extends JDialog {
         		pformpanel.add(lblVendCountry, gbc_lblVendCountry);
         		
            		JLabel fVendCountry = new JLabel(vendor.getvendCountry());
-        		fVendCountry.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		fVendCountry.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_fVendCountry = new GridBagConstraints();
         		gbc_fVendCountry.anchor = GridBagConstraints.NORTHWEST;
         		gbc_fVendCountry.insets = new Insets(10, 10, 10, 5);
@@ -488,7 +492,7 @@ public class SupplyUI extends JDialog {
         		
         		//Typical Delivery Class
         	    JLabel lblVendSuppClass = new JLabel("Supply Quality Class");
-        	    lblVendSuppClass.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        	    lblVendSuppClass.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblVendSuppClass = new GridBagConstraints();
         		gbc_lblVendSuppClass.anchor = GridBagConstraints.EAST;
         		gbc_lblVendSuppClass.insets = new Insets(10, 10, 10, 5);
@@ -497,9 +501,9 @@ public class SupplyUI extends JDialog {
         		pformpanel.add(lblVendSuppClass, gbc_lblVendSuppClass);
         		
         		//JComboBox tfVendSuppClass = new JComboBox();
-        		tfVendSuppClass.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		tfVendSuppClass.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		tfVendSuppClass.setModel(new DefaultComboBoxModel(new String[] {"None", "Gold", "Silver", "Bronze"}));
-        		tfVendSuppClass.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		tfVendSuppClass.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_tfVendSuppClass = new GridBagConstraints();
         		gbc_tfVendSuppClass.gridwidth = 2;
         		gbc_tfVendSuppClass.insets = new Insets(10, 10, 10, 5);
@@ -511,7 +515,7 @@ public class SupplyUI extends JDialog {
         		
         		//Typical Delivery Schedule 
         	    JLabel lblVendSuppTime = new JLabel("Supply Lead Time");
-        	    lblVendSuppTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        	    lblVendSuppTime.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblVendSuppTime = new GridBagConstraints();
         		gbc_lblVendSuppTime.anchor = GridBagConstraints.EAST;
         		gbc_lblVendSuppTime.insets = new Insets(10, 10, 10, 5);
@@ -521,7 +525,7 @@ public class SupplyUI extends JDialog {
         		
         		//JTextField tfVendSuppTime = new JTextField();
         		tfVendSuppTime.setText(" ");
-        		tfVendSuppTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		tfVendSuppTime.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		tfVendSuppTime.setColumns(5);
         		GridBagConstraints gbc_tfVendSuppTime = new GridBagConstraints();
         		gbc_tfVendSuppTime.gridwidth = 2;
@@ -534,7 +538,7 @@ public class SupplyUI extends JDialog {
         	
         		//Vendor Price 
         	    JLabel lblVendPrice = new JLabel("Price($)");
-        	    lblVendPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        	    lblVendPrice.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_lblVendPrice = new GridBagConstraints();
         		gbc_lblVendPrice.anchor = GridBagConstraints.EAST;
         		gbc_lblVendPrice.insets = new Insets(10, 10, 10, 5);
@@ -544,9 +548,9 @@ public class SupplyUI extends JDialog {
         		
            		//JTextField tfVendPrice = new JTextField();
            		tfVendPrice.setText(" ");
-           		tfVendPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+           		tfVendPrice.setFont(new Font("Tahoma", Font.PLAIN, 12));
            		tfVendPrice.setColumns(5);
-        	    tfVendPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        	    tfVendPrice.setFont(new Font("Tahoma", Font.PLAIN, 12));
         		GridBagConstraints gbc_tfVendPrice = new GridBagConstraints();
         		gbc_tfVendPrice.anchor = GridBagConstraints.NORTHWEST;
         		gbc_tfVendPrice.insets = new Insets(10, 10, 10, 5);
@@ -561,7 +565,7 @@ public class SupplyUI extends JDialog {
                 pformpanel.add(lblVendName, 	gbc_lblVendName);
         		pformpanel.add(tfVendName, 		gbc_vendName);
         		pformpanel.add(lblVendId, 		gbc_lblVendId);        		
-        		pformpanel.add(flblVendId, 		gbc_flblVendId);
+        		//pformpanel.add(flblVendId, 		gbc_flblVendId);
         		pformpanel.add(lblVendAddr, 	gbc_lblVendAddr);
          		pformpanel.add(fVendAddr, 		gbc_fVendAddr);
         		pformpanel.add(lblVendCity, 	gbc_lblVendCity);
@@ -618,10 +622,10 @@ public class SupplyUI extends JDialog {
         		suppModel.setpartName(insPartName);
         		suppModel.setvendId(insVendId);
         		suppModel.setvendName(insVendName);
-        		//suppModel.setvendSupplyClass(insSupplyClass);
+        		suppModel.setvendSupplyClass(insSupplyClass);
         		suppModel.setvendSupplyClass(tfVendSuppClass.getSelectedItem().toString());
-        		suppModel.setvendSupplyLeadTime(Integer.parseInt(tfVendSuppTime.getText()));
-        		suppModel.setvendSupplyPrice(Integer.parseInt(tfVendPrice.getText())); 
+        		suppModel.setvendSupplyLeadTime(Integer.parseInt(tfVendSuppTime.getText().trim()));
+        		suppModel.setvendSupplyPrice(Integer.parseInt(tfVendPrice.getText().trim())); 
          		session.save(suppModel);
         		tr.commit();
         		System.out.println("Successfully inserted Supplies Info");        		
@@ -687,23 +691,23 @@ public class SupplyUI extends JDialog {
 	    	JPanel title = new JPanel();
 	    	title.setBackground(Color.decode("#006666"));
 	    	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-		    title.setPreferredSize(new Dimension(640,30));
+		    title.setPreferredSize(new Dimension(720,30));
 	        title.setOpaque(true);
 	        
 	       	//Create Panel for Menu       
 	    	JPanel tblpanel = new JPanel(new BorderLayout());
-	        tblpanel.setPreferredSize(new Dimension(640, 320));   
+	        tblpanel.setPreferredSize(new Dimension(720, 320));   
 			tblpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 			tblpanel.setBackground(Color.white);
 			
 	       	//Create Panel for Bottom (Adding Buttons for Operations)               
 		    JPanel bp = new JPanel();
 	        bp.setBackground(Color.decode("#87CEFA"));
-	        bp.setPreferredSize(new Dimension(640, 40));  
+	        bp.setPreferredSize(new Dimension(720, 40));  
 	    	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 	        bp.setOpaque(true);
 	        
-		    JLabel ltitle = new JLabel("Vendor Management Portal");
+		    JLabel ltitle = new JLabel("Vendor Management Portal >> View >> Supply of Materials");
 		    ltitle.setHorizontalAlignment(JLabel.CENTER);
 		    ltitle.setVerticalAlignment(JLabel.CENTER);
 		    ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));

@@ -11,7 +11,7 @@ public class AppMain
 		final JFrame frame = new JFrame("Supply Chain Management");
 		//frame.setBounds(30,30,370,600);
 		frame.setTitle("Supply Chain Management");
-		frame.setSize(640,480);
+		frame.setSize(720,480);
 		frame.setVisible(true);
 		
 		LoginHelper lframe=new LoginHelper(frame);

@@ -41,7 +41,7 @@ public class MainMenuHelper extends JDialog
 	
 	public MainMenuHelper(JFrame parent)
 	{
-		super(parent, "Vendor Management System", true);
+		super(parent, "Vendor Management System ", true);
 		parent1=parent;
 	}
 
@@ -56,41 +56,43 @@ public class MainMenuHelper extends JDialog
        	//Create Panel for Menu       
     	JPanel menupanel = new JPanel(new BorderLayout());
     	menupanel.setBackground(Color.WHITE);
-    	menupanel.setPreferredSize(new Dimension(638, 350));
+    	menupanel.setPreferredSize(new Dimension(718, 350));
      	menupanel.setOpaque(true);
      	
      	//Create Panel for Displaying Scorecards of #Products, #Vendors, #Parts, #Production Plans, #Orders 
      	EtchedBorder eBorder = new EtchedBorder(EtchedBorder.LOWERED, Color.WHITE, Color.gray);
     	JPanel scardpanel = new JPanel(new BorderLayout(5,5));
     	scardpanel.setBackground(Color.WHITE);
-    	scardpanel.setPreferredSize(new Dimension(638, 320));
+    	scardpanel.setPreferredSize(new Dimension(718, 320));
     	scardpanel.setOpaque(true);
     	menupanel.add(scardpanel, BorderLayout.PAGE_END);
     	
     	JPanel scardpanel1 = new JPanel(new BorderLayout(10,10));
     	scardpanel1.setBackground(Color.WHITE);
-    	scardpanel1.setPreferredSize(new Dimension(638, 150));
+    	scardpanel1.setPreferredSize(new Dimension(718, 150));
     	scardpanel1.setOpaque(true);
     	scardpanel1.setBorder(BorderFactory.createEmptyBorder(10, 5,0, 5));
     	scardpanel.add(scardpanel1, BorderLayout.PAGE_START);
     	JPanel scpProduct = new JPanel(new BorderLayout());
     	scpProduct.setBackground(Color.decode("#E0FFFF"));
-    	scpProduct.setPreferredSize(new Dimension(200, 150));
+    	scpProduct.setPreferredSize(new Dimension(240, 150));
     	scpProduct.setOpaque(true);
     	scardpanel1.add(scpProduct, BorderLayout.LINE_START);
     	JPanel scpVendor = new JPanel(new BorderLayout());
     	scpVendor.setBackground(Color.decode("#E0FFFF"));
-    	scpVendor.setPreferredSize(new Dimension(200, 150));
+    	scpVendor.setPreferredSize(new Dimension(240, 150));
     	scpVendor.setOpaque(true);
     	//scpVendor.setBorder(eBorder);
     	scardpanel1.add(scpVendor, BorderLayout.CENTER);
     	JPanel scpPart = new JPanel(new BorderLayout());
     	scpPart.setBackground(Color.decode("#E0FFFF"));
-    	scpPart.setPreferredSize(new Dimension(200, 150));
+    	scpPart.setPreferredSize(new Dimension(240, 150));
     	scpPart.setOpaque(true);
     	//scpPart.setBorder(eBorder);
     	scardpanel1.add(scpPart, BorderLayout.LINE_END);  
-    	
+
+ 
+    	//Dummy dashboard values to avoid fetch during testing.....
     	countProducts=2;
     	countVendors=3;
     	countParts=4;
@@ -99,9 +101,10 @@ public class MainMenuHelper extends JDialog
     	countOrders=7;
     	countBoms=8;
 
-    	
-    	{
-        /*	List<ProductModel> Products;
+
+    	   	/*
+    	 { 
+        	List<ProductModel> Products;
         	List<VendorModel> Vendors;
     		List<PartModel> Parts;
     		List<BoMModel> Boms; 		
@@ -139,12 +142,9 @@ public class MainMenuHelper extends JDialog
             countSupplies = model5.getRowCount();
             ProdCycleTableModel model6 = new ProdCycleTableModel(ProdCycles);
             countProdCycles = model6.getRowCount();
-            */
-    	 } 
-    	
-
-    	
-    	JLabel sclProduct = new JLabel("#Products");
+    	}     	
+    	 */
+    	JLabel sclProduct = new JLabel("Products");
     	sclProduct.setHorizontalAlignment(SwingConstants.CENTER);
     	sclProduct.setFont(new Font("Tahoma", Font.PLAIN, 18));
     	sclProduct.setBackground(Color.decode("#006666"));
@@ -157,7 +157,7 @@ public class MainMenuHelper extends JDialog
     	scpProduct.add(sclProduct, BorderLayout.PAGE_END);
     	scpProduct.add(scProduct, BorderLayout.CENTER);
     	
-    	JLabel sclVendor = new JLabel("#Vendors");
+    	JLabel sclVendor = new JLabel("Vendors");
     	sclVendor.setHorizontalAlignment(SwingConstants.CENTER);
     	sclVendor.setFont(new Font("Tahoma", Font.PLAIN, 18));
     	sclVendor.setBackground(Color.decode("#006666"));
@@ -171,7 +171,7 @@ public class MainMenuHelper extends JDialog
     	scpVendor.add(scVendor, BorderLayout.CENTER);
     	scpVendor.add(sclVendor, BorderLayout.PAGE_END);
     	
-    	JLabel sclPart = new JLabel("#Parts");
+    	JLabel sclPart = new JLabel("Parts");
     	sclPart.setHorizontalAlignment(SwingConstants.CENTER);
     	sclPart.setFont(new Font("Tahoma", Font.PLAIN, 18));
     	sclPart.setBackground(Color.decode("#006666"));
@@ -188,28 +188,28 @@ public class MainMenuHelper extends JDialog
    	
     	JPanel scardpanel2 = new JPanel(new BorderLayout(10,10));
     	scardpanel2.setBackground(Color.WHITE);
-    	scardpanel2.setPreferredSize(new Dimension(638, 150));
+    	scardpanel2.setPreferredSize(new Dimension(718, 150));
     	scardpanel2.setOpaque(true);
     	scardpanel2.setBorder(BorderFactory.createEmptyBorder(0, 5,10, 5));
     	scardpanel.add(scardpanel2, BorderLayout.PAGE_END);
     	
     	JPanel scpSupply = new JPanel(new BorderLayout());
     	scpSupply.setBackground(Color.decode("#E0FFFF"));
-    	scpSupply.setPreferredSize(new Dimension(200, 150));
+    	scpSupply.setPreferredSize(new Dimension(240, 150));
     	scpSupply.setOpaque(true);
     	scardpanel2.add(scpSupply, BorderLayout.LINE_START);
     	JPanel scpOrder = new JPanel(new BorderLayout());
     	scpOrder.setBackground(Color.decode("#E0FFFF"));
-    	scpOrder.setPreferredSize(new Dimension(200, 150));
+    	scpOrder.setPreferredSize(new Dimension(240, 150));
     	scpOrder.setOpaque(true);
     	scardpanel2.add(scpOrder, BorderLayout.CENTER);
     	JPanel scpProd = new JPanel(new BorderLayout());
     	scpProd.setBackground(Color.decode("#E0FFFF"));
-    	scpProd.setPreferredSize(new Dimension(200, 150));
+    	scpProd.setPreferredSize(new Dimension(240, 150));
     	scpProd.setOpaque(true);
     	scardpanel2.add(scpProd, BorderLayout.LINE_END);    
     	
-    	JLabel sclSupplies = new JLabel("#Supplies");
+    	JLabel sclSupplies = new JLabel("Supplies");
     	sclSupplies.setHorizontalAlignment(SwingConstants.CENTER);
     	sclSupplies.setFont(new Font("Tahoma", Font.PLAIN, 18));
     	sclSupplies.setBackground(Color.decode("#006666"));
@@ -225,7 +225,7 @@ public class MainMenuHelper extends JDialog
     	scpSupply.add(sclSupplies, BorderLayout.PAGE_END);
     	
     	
-    	JLabel sclOrder = new JLabel("#Bills of Material");
+    	JLabel sclOrder = new JLabel("Bills of Material");
     	sclOrder.setHorizontalAlignment(SwingConstants.CENTER);
     	sclOrder.setFont(new Font("Tahoma", Font.PLAIN, 18));
     	sclOrder.setBackground(Color.decode("#006666"));
@@ -240,7 +240,7 @@ public class MainMenuHelper extends JDialog
     	scpOrder.add(scOrder, BorderLayout.CENTER);
     	scpOrder.add(sclOrder, BorderLayout.PAGE_END);
     	
-    	JLabel sclProd = new JLabel("#Production Batches");  
+    	JLabel sclProd = new JLabel("Production Batches");  
     	sclProd.setHorizontalAlignment(SwingConstants.CENTER);
     	sclProd.setHorizontalAlignment(SwingConstants.CENTER);
     	sclProd.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -259,11 +259,11 @@ public class MainMenuHelper extends JDialog
        	//Create Panel for Bottom (Adding Buttons for Operations)               
 	    JPanel bp = new JPanel();
         bp.setBackground(Color.decode("#87CEFA"));
-        bp.setPreferredSize(new Dimension(638,25));
+        bp.setPreferredSize(new Dimension(718,25));
         bp.setOpaque(true);
         
     	//Adding Components for the Title Panel    
-	    JLabel ltitle = new JLabel("Vendor Management Portal");
+	    JLabel ltitle = new JLabel("Vendor Management Portal >> Menu & DashBoard");
 	    ltitle.setHorizontalAlignment(JLabel.CENTER);
 	    ltitle.setVerticalAlignment(JLabel.CENTER);
 	    ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));
@@ -291,7 +291,8 @@ public class MainMenuHelper extends JDialog
         e = new JMenu("GENERATE");r1 = new JMenuItem("ORDER LIST"); r2 = new JMenuItem("PURCHASE ORDERS");//r3 = new JMenuItem("PRINT INVOICE");
         e.add(r1); e.add(r2); //e.add(r3);
         f = new JMenu("ABOUT"); a1 = new JMenuItem("ABOUT SOFTWARE"); a2 = new JMenuItem("ABOUT DEVELOPER"); a3 = new JMenuItem("ABOUT COMPANY");
-        a1.setEnabled(false);a2.setEnabled(false);a3.setEnabled(false);
+        //a1.setEnabled(false);
+        a2.setEnabled(false);a3.setEnabled(false);
         f.add(a1); f.add(a2); f.add(a3);
         
         //Add the Menus to the menubar 
@@ -460,6 +461,18 @@ public class MainMenuHelper extends JDialog
             	 OrderListUI olframe=new OrderListUI(parent1);
              	 olframe.OrderListGenUI();
             	 olframe.setVisible(true);            	
+            }
+        }); //End of Generate->Order List
+        
+        a1.addActionListener(new ActionListener() 
+        {     	 
+            public void actionPerformed(ActionEvent e) 
+            {
+            	 System.out.println("You have chosen About->Software !!!");
+             	 dispose();
+            	 AboutUI abframe=new AboutUI(parent1);
+             	 abframe.AboutAddUI();
+            	 abframe.setVisible(true);            	
             }
         }); //End of Generate->Order List
                         

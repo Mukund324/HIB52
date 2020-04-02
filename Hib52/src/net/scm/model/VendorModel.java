@@ -6,7 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
 @Table(name = "vendor")
@@ -20,8 +21,8 @@ public class VendorModel implements Serializable
 	@Column(name="id")
 	private int id;	
 
-	@Column(name="vendor_id")
-	private String vendId;
+	@Column(name = "vendor_id")
+	private String vendId; //Vendor Id
 
 	@Column(name="vendor_name")
 	private String  vendName;	  

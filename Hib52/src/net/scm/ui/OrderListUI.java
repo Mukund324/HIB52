@@ -1,6 +1,6 @@
 package net.scm.ui;
-import net.scm.model.*;
 import net.scm.core.*;
+import net.scm.model.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,13 +12,24 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,9 +37,12 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
@@ -56,10 +70,22 @@ public class OrderListUI extends JDialog {
 
 	public String ProdCycProdId;
 	public String ProdCycProdName;
+	public Date ProdCycStDt;
+	public Integer ProdCycCapPrice;
 	
 	public JButton btnGen;
 	public JButton btnReset;
 	public JButton btnMenu;
+	
+	ButtonGroup btngrpOptCrit;
+	public Boolean selCritPrice=false;
+	public Boolean selCritQuality=false;
+	public Boolean selCritLeadTime=false;
+	public Boolean selCritOptimal=false;
+	Popup po;
+	JPanel p1;
+	PopupFactory pf;
+	
 	
 	public OrderListUI(JFrame parent)
 	{
@@ -79,9 +105,9 @@ public class OrderListUI extends JDialog {
 
     	//Create Panel for Menu       
     	JPanel formpanel = new JPanel(new GridBagLayout());
-        formpanel.setPreferredSize(new Dimension(300, 400));
-        formpanel.setMaximumSize(new Dimension(300, 400));
-        formpanel.setMinimumSize(new Dimension(300, 400));
+        formpanel.setPreferredSize(new Dimension(200, 400));
+        formpanel.setMaximumSize(new Dimension(200, 400));
+        formpanel.setMinimumSize(new Dimension(200, 400));
 		formpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 		formpanel.setBackground(Color.white);
 		GridBagLayout gBL = new GridBagLayout();
@@ -91,9 +117,9 @@ public class OrderListUI extends JDialog {
 		gBL.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		
     	JPanel pformpanel = new JPanel(new GridBagLayout());
-        pformpanel.setPreferredSize(new Dimension(340, 400));
-        pformpanel.setMaximumSize(new Dimension(340, 400));
-        pformpanel.setMinimumSize(new Dimension(340, 400));
+        pformpanel.setPreferredSize(new Dimension(440, 400));
+        pformpanel.setMaximumSize(new Dimension(440, 400));
+        pformpanel.setMinimumSize(new Dimension(440, 400));
 		pformpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 		pformpanel.setBackground(Color.white);
 		GridBagLayout pgBL = new GridBagLayout();
@@ -123,6 +149,14 @@ public class OrderListUI extends JDialog {
 	    bp.add(btnGen);
 	    bp.add(btnReset);
 	    bp.add(btnMenu);
+	    
+    	pf = new PopupFactory();  
+	    p1 = new JPanel(); 
+	    p1.setBackground(Color.blue); 
+	    JLabel l = new JLabel("This  is a popup menu"); 
+        p1.add(l);
+        // create a popup 
+	    Popup po = pf.getPopup(parent1, p1, 180, 100);        
 	    
 	    //Production Cycle Name
 	    JLabel lbProdCycName = new JLabel("PRODUCTION BATCH NAME");
@@ -160,8 +194,8 @@ public class OrderListUI extends JDialog {
 		gbc_ProdCycName.gridwidth = 1;
 		gbc_ProdCycName.insets = new Insets(10, 10, 10, 5);
 		gbc_ProdCycName.anchor = GridBagConstraints.NORTHWEST;
-		gbc_ProdCycName.gridx = 1;
-		gbc_ProdCycName.gridy = 0;
+		gbc_ProdCycName.gridx = 0;
+		gbc_ProdCycName.gridy = 1;
 		formpanel.add(tfProdCycName, gbc_ProdCycName);
 	    
 	    // Create an ActionListener for the PRODUCT JComboBox component.
@@ -191,6 +225,8 @@ public class OrderListUI extends JDialog {
                 //Assign the Product ID needed for search from the ProdCyc choice to search the BoM for the list of Part Names
                 ProdCycProdId= prodcyc.getprodcycId();
                 ProdCycProdName= prodcyc.getprodcycProd() ;
+                ProdCycStDt = prodcyc.getprodcycStDt() ;
+            	ProdCycCapPrice= prodcyc.getprodcycCapPrice();
                 
         	    //Production Cycle ID
         	    JLabel lbProdCycId = new JLabel("PRODUCTION BATCH ID");
@@ -297,20 +333,151 @@ public class OrderListUI extends JDialog {
         		gbc_ProdCycPriceCap.gridy = 9;
         		pformpanel.add(tfProdCycPriceCap, gbc_ProdCycPriceCap);	
         		
+        	    //Production Cycle Batch Size
+        	    JLabel lbProdCycBatchSize = new JLabel("PRODUCTION BATCH SIZE");
+        	    lbProdCycBatchSize.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		GridBagConstraints gbc_lbProdCycBatchSize = new GridBagConstraints();
+        		gbc_lbProdCycBatchSize.anchor = GridBagConstraints.EAST;
+        		gbc_lbProdCycBatchSize.insets = new Insets(10, 10, 10, 5);
+        		gbc_lbProdCycBatchSize.gridx = 0;
+        		gbc_lbProdCycBatchSize.gridy = 11;
+        		pformpanel.add(lbProdCycBatchSize, gbc_lbProdCycBatchSize);
+        		
+        		JLabel tfProdCycBatchSize = new JLabel(Integer.toString(prodcyc.getprodcycBatchSize()));
+        		tfProdCycBatchSize.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		GridBagConstraints gbc_ProdCycBatchSize = new GridBagConstraints();
+        		gbc_ProdCycBatchSize.gridwidth = 2;
+        		gbc_ProdCycBatchSize.insets = new Insets(10, 10, 10, 5);
+        		gbc_ProdCycBatchSize.anchor = GridBagConstraints.NORTHWEST;
+        		gbc_ProdCycBatchSize.gridx = 1;
+        		gbc_ProdCycBatchSize.gridy = 11;
+        		pformpanel.add(tfProdCycBatchSize, gbc_ProdCycBatchSize);	
+        		
+           	    //Production Cycle Vendor Selection Criterion
+        	    JLabel lbProdCycSelCrit = new JLabel("VENDOR SELECTION CRITERION");
+        	    lbProdCycSelCrit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        		GridBagConstraints gbc_lbProdCycSelCrit = new GridBagConstraints();
+        		gbc_lbProdCycSelCrit.anchor = GridBagConstraints.EAST;
+        		gbc_lbProdCycSelCrit.insets = new Insets(10, 10, 10, 5);
+        		gbc_lbProdCycSelCrit.gridx = 0;
+        		gbc_lbProdCycSelCrit.gridy = 13;
+        		pformpanel.add(lbProdCycSelCrit, gbc_lbProdCycSelCrit);
+        		
+                ActionListener rbPAction = new ActionListener() 
+                {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        JRadioButton button = (JRadioButton) e.getSource();
+                    	selCritPrice=true;	selCritQuality=false; selCritLeadTime=false; selCritOptimal=false;
+                        System.out.println("Selected Price Optimization");
+                    }
+                };
+                ActionListener rbLAction = new ActionListener() 
+                {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        JRadioButton button = (JRadioButton) e.getSource();
+                        selCritPrice=false;	selCritLeadTime=true; selCritQuality=false;  selCritOptimal=false;
+                        System.out.println("Selected LeadTime Optimization");
+                    }
+                };
+                ActionListener rbQAction = new ActionListener() 
+                {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        JRadioButton button = (JRadioButton) e.getSource();
+                        selCritPrice=false;	selCritLeadTime=false; selCritQuality=true; selCritOptimal=false;
+                        System.out.println("Selected Quality Optimization");
+                    }
+                };
+                ActionListener rbOAction = new ActionListener() 
+                {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        JRadioButton button = (JRadioButton) e.getSource();
+                        selCritPrice=false;	selCritLeadTime=false; selCritQuality=false; selCritOptimal=true;
+                        System.out.println("Selected Combined Optimization");
+                    }
+                };
+        		
+        		JRadioButton rbPrice=new JRadioButton("Best Price"); 
+        		rbPrice.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        		rbPrice.addActionListener(rbPAction);
+           		JRadioButton rbLeadTime=new JRadioButton("Supply LeadTime"); 
+           		rbLeadTime.setFont(new Font("Tahoma", Font.PLAIN, 12));
+           		rbLeadTime.addActionListener(rbLAction);
+           		JRadioButton rbQuality=new JRadioButton("Best Quality"); 
+           		rbQuality.setFont(new Font("Tahoma", Font.PLAIN, 12));
+           		rbQuality.addActionListener(rbQAction);
+          		JRadioButton rbOptimal=new JRadioButton("Optimal"); 
+           		rbOptimal.setFont(new Font("Tahoma", Font.PLAIN, 12));
+           		rbOptimal.addActionListener(rbOAction);           		
+  		
+        		GridBagConstraints gbc_rbPrice = new GridBagConstraints();
+        		gbc_rbPrice.gridwidth = 1;
+        		gbc_rbPrice.insets = new Insets(10, 2, 2, 2);
+        		gbc_rbPrice.anchor = GridBagConstraints.NORTHWEST;
+        		gbc_rbPrice.gridx = 1;
+        		gbc_rbPrice.gridy = 13;
+        		pformpanel.add(rbPrice, gbc_rbPrice);	
+        		
+
+        		GridBagConstraints gbc_rbLeadTime = new GridBagConstraints();
+        		gbc_rbLeadTime.gridwidth = 1;
+        		gbc_rbLeadTime.insets = new Insets(2, 2, 2, 2);
+        		gbc_rbLeadTime.anchor = GridBagConstraints.NORTHWEST;
+        		gbc_rbLeadTime.gridx = 1;
+        		gbc_rbLeadTime.gridy = 14;
+        		pformpanel.add(rbLeadTime, gbc_rbLeadTime);	
+        		
+
+        		GridBagConstraints gbc_rbQuality = new GridBagConstraints();
+        		gbc_rbQuality.gridwidth = 1;
+        		gbc_rbQuality.insets = new Insets(2, 2, 2, 2);
+        		gbc_rbQuality.anchor = GridBagConstraints.NORTHWEST;
+        		gbc_rbQuality.gridx = 1;
+        		gbc_rbQuality.gridy = 15;
+        		pformpanel.add(rbQuality, gbc_rbQuality);	
+        		
+ 
+        		GridBagConstraints gbc_rbOptimal = new GridBagConstraints();
+        		gbc_rbOptimal.gridwidth = 1;
+        		gbc_rbOptimal.insets = new Insets(2,2, 2, 2);
+        		gbc_rbOptimal.anchor = GridBagConstraints.NORTHWEST;
+        		gbc_rbOptimal.gridx = 1;
+        		gbc_rbOptimal.gridy = 16;
+        		pformpanel.add(rbOptimal, gbc_rbOptimal);
+        		
+ 
+        		
+
+        		
+        		ButtonGroup btngrpOptCrit = new ButtonGroup();
+        		btngrpOptCrit.add(rbPrice);
+        		btngrpOptCrit.add(rbLeadTime);
+        		btngrpOptCrit.add(rbQuality);
+        		btngrpOptCrit.add(rbOptimal);   
        		
         		pformpanel.removeAll();
                 pformpanel.invalidate();
                 
-        		pformpanel.add(lbProdCycId, gbc_lbProdCycId);
-        		pformpanel.add(tfProdCycId, gbc_ProdCycId);
-        		pformpanel.add(lbProdCycName, gbc_lbProdCycName);  		
-        		pformpanel.add(lbProdCycStDt, gbc_lbProdCycStDt); 
-        		pformpanel.add(tfProdCycStDt, gbc_ProdCycStDt);      
-        		pformpanel.add(tfProdCycName1, gbc_ProdCycName1);
-        		pformpanel.add(lbProdCycClass, gbc_lbProdCycClass);
-        		pformpanel.add(tfProdCycClass, gbc_ProdCycClass);
-        		pformpanel.add(lbProdCycPriceCap, gbc_lbProdCycPriceCap);
-        		pformpanel.add(tfProdCycPriceCap, gbc_ProdCycPriceCap);	
+        		pformpanel.add(lbProdCycId,        gbc_lbProdCycId);
+        		pformpanel.add(tfProdCycId,        gbc_ProdCycId);
+        		pformpanel.add(lbProdCycName,      gbc_lbProdCycName);  		
+        		pformpanel.add(lbProdCycStDt,      gbc_lbProdCycStDt); 
+        		pformpanel.add(tfProdCycStDt,      gbc_ProdCycStDt);      
+        		pformpanel.add(tfProdCycName1,     gbc_ProdCycName1);
+        		pformpanel.add(lbProdCycClass,     gbc_lbProdCycClass);
+        		pformpanel.add(tfProdCycClass,     gbc_ProdCycClass);
+        		pformpanel.add(lbProdCycPriceCap,  gbc_lbProdCycPriceCap);
+        		pformpanel.add(tfProdCycPriceCap,  gbc_ProdCycPriceCap);	
+           		pformpanel.add(lbProdCycBatchSize, gbc_lbProdCycBatchSize);
+           		pformpanel.add(tfProdCycBatchSize, gbc_ProdCycBatchSize);	
+        		pformpanel.add(lbProdCycSelCrit, gbc_lbProdCycSelCrit);
+        		pformpanel.add(rbPrice, gbc_rbPrice);
+        		pformpanel.add(rbLeadTime, gbc_rbLeadTime);	
+        		pformpanel.add(rbQuality, gbc_rbQuality);	
+           		pformpanel.add(rbOptimal, gbc_rbOptimal);	
 
         		pformpanel.revalidate();
         		pformpanel.repaint();
@@ -322,34 +489,129 @@ public class OrderListUI extends JDialog {
         {     	 
             public void actionPerformed(ActionEvent e) 
             {
-        		SessionFactory sessFact = HibernateUtil.getSessionFactory();
+            	po.show();
+            	
+            	SessionFactory sessFact = HibernateUtil.getSessionFactory();
         		session = sessFact.getCurrentSession();
         		org.hibernate.Transaction tr = session.beginTransaction();
-
+        		//Fetch the Parts for the Product from the BOM Table 
         		CriteriaBuilder builder = session.getCriteriaBuilder();
                 javax.persistence.criteria.CriteriaQuery<BoMModel> query = builder.createQuery(BoMModel.class);
         	    Root<BoMModel> root = query.from(BoMModel.class); 
         	    System.out.println(ProdCycProdName);
                 query.select(root).where(builder.equal(root.get("bomProdName"), ProdCycProdName));
                 Query<BoMModel> q=session.createQuery(query);
+                //q.setMaxResults(1);
                 List<BoMModel> bomList=q.getResultList();
-                bomList.forEach(System.out::println);
-
-                for (BoMModel bomlineitem : bomList) 
+                //bomList.forEach(System.out::println);
+              
+            	List<Order> ordListFullPrice = new ArrayList<Order>();
+            	List<SupplyModel> supListFullLeadTime = new ArrayList<SupplyModel>();
+               	List<SupplyModel> supListFullQlty = new ArrayList<SupplyModel>();
+            	List<Order> orderListFull = new ArrayList<Order>();
+            	
+               if (selCritPrice==true)
                 {
-             	    System.out.println(bomlineitem.getbomPartId());
-                	CriteriaBuilder builder1 = session.getCriteriaBuilder();
-                    javax.persistence.criteria.CriteriaQuery<SupplyModel> query1 = builder1.createQuery(SupplyModel.class);
-            	    Root<SupplyModel> root1 = query1.from(SupplyModel.class); 
-                    query1.select(root1).where(builder1.equal(root1.get("partId"), bomlineitem.getbomPartId()));
-                    Query<SupplyModel> q1=session.createQuery(query1);
-                    List<SupplyModel> supList=q1.getResultList();
-                    supList.forEach(System.out::println);
-                }              
-                tr.commit();   
+                	for (BoMModel bomlineitem : bomList) 
+                	{   
+                		//System.out.println(">>>>>>>>>>>>> BOM PART ID: "+bomlineitem.getbomPartId()+"----------------------------------------------------");               		
+                		CriteriaBuilder cb = session.getCriteriaBuilder();
+                		javax.persistence.criteria.CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+                		Root<SupplyModel> supply = cq.from(SupplyModel.class); 
+                		Root<VendorModel> vend = cq.from(VendorModel.class); 
+                		//Join<SupplyModel,VendorModel> suppJvend = supply.join("vendId",JoinType.INNER);
+                		
+                		Predicate eqToProdId = cb.equal(supply.get("partId"), bomlineitem.getbomPartId());
+                		Predicate eqSupVendId = cb.equal(supply.get("vendId"), vend.get("vendId"));
+                		cq.multiselect(
+                						supply.get("partId"),
+                						supply.get("partName"),
+                						supply.get("vendId"),
+                						supply.get("vendName"),
+                						vend.get("vendAddr1"),
+                						vend.get("vendCity"),
+                						vend.get("vendCountry"),
+                						vend.get("vendPin"),
+                						vend.get("vendTin"),
+                						supply.get("vendSupplyClass"),
+                						supply.get("vendSupplyLeadTime"),
+                						supply.get("vendSupplyPrice")                				       
+                				      ).where(cb.and(eqToProdId, eqSupVendId)).orderBy(cb.asc(supply.get("vendSupplyPrice")));
+                		TypedQuery<Order> tq = session.createQuery(cq);
+                		tq.setMaxResults(1);
+                		List<Order> ordList=tq.getResultList();
+                		//ordList.forEach(System.out::println);
+                		ordListFullPrice.addAll(ordList);
+                	} 
+                	ordListFullPrice.forEach(System.out::println);
+                }
+            	//Iterate through the BOM part List to find the list of vendors for a given part for least lead time on top
+/*                if (selCritPrice==true)
+                {
+                	for (BoMModel bomlineitem : bomList) 
+                	{   
+                		System.out.println(bomlineitem.getbomPartId());
+                		CriteriaBuilder cb = session.getCriteriaBuilder();
+
+                		javax.persistence.criteria.CriteriaQuery<SupplyModel> cq = cb.createQuery(SupplyModel.class);
+                		Root<SupplyModel> supply = cq.from(SupplyModel.class); 
+                		cq.select(supply);
+                		cq.where(cb.equal(supply.get("partId"), bomlineitem.getbomPartId()));
+                		cq.orderBy(cb.asc(supply.get("vendSupplyPrice")));
+                		Query<SupplyModel> q1=session.createQuery(cq);
+                		List<SupplyModel> supList=q1.getResultList();
+                		//supList.forEach(System.out::println);
+                		supListFullPrice.addAll(supList);
+                	} 
+                	supListFullPrice.forEach(System.out::println);
+                }
+*/               
+                //Iterate through the BOM part List to find the list of vendors for a given part and arrange for least lead time on top 
+                if (selCritLeadTime==true)
+                {    	
+                	
+                	for (BoMModel bomlineitem : bomList) 
+                	{   
+                		System.out.println(bomlineitem.getbomPartId());
+                		CriteriaBuilder cb = session.getCriteriaBuilder();
+                		javax.persistence.criteria.CriteriaQuery<SupplyModel> cq = cb.createQuery(SupplyModel.class);
+                		Root<SupplyModel> supply = cq.from(SupplyModel.class); 
+                		cq.select(supply);
+                		cq.where(cb.equal(supply.get("partId"), bomlineitem.getbomPartId()));
+                		cq.orderBy(cb.asc(supply.get("vendSupplyLeadTime")));
+                		Query<SupplyModel> q1=session.createQuery(cq);
+                		List<SupplyModel> supList=q1.getResultList();
+                		supListFullLeadTime.addAll(supList); 
+                	}  
+                	supListFullLeadTime.forEach(System.out::println);
+                }
+                
+                if (selCritQuality==true)
+                {    	
+                	//Iterate through the BOM part List to find the list of vendors for a given part and arrange for least lead time on top 
+                	for (BoMModel bomlineitem : bomList) 
+                	{   
+                		System.out.println(bomlineitem.getbomPartId());
+                		CriteriaBuilder cb = session.getCriteriaBuilder();
+                		javax.persistence.criteria.CriteriaQuery<SupplyModel> cq = cb.createQuery(SupplyModel.class);
+                		Root<SupplyModel> supply = cq.from(SupplyModel.class); 
+                		cq.select(supply);
+                		cq.where(cb.equal(supply.get("partId"), bomlineitem.getbomPartId()));
+                		cq.orderBy(cb.asc(supply.get("vendSupplyClass")));
+                		Query<SupplyModel> q1=session.createQuery(cq);
+                		List<SupplyModel> supList=q1.getResultList();
+                		supListFullQlty.addAll(supList); 
+                	}  
+                	supListFullQlty.forEach(System.out::println);
+                }
+                tr.commit(); 
             }
         });
+        
 		
+
+        
+        
         btnMenu.addActionListener(new ActionListener() 
         {     	 
             public void actionPerformed(ActionEvent e) 
@@ -365,6 +627,7 @@ public class OrderListUI extends JDialog {
 	    getContentPane().add(formpanel, BorderLayout.WEST);
 	    getContentPane().add(pformpanel, BorderLayout.EAST);
 	    getContentPane().add(bp, BorderLayout.SOUTH);
+	    //getContentPane().add(p1, BorderLayout.CENTER);
 	    pack();
 	    setResizable(true);
 	    setLocationRelativeTo(parent1);	

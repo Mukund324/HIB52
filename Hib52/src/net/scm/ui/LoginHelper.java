@@ -37,7 +37,7 @@ public class LoginHelper extends JDialog{
 
 		    JPanel title = new JPanel();
 		    title.setBackground(Color.decode("#006666"));
-		    title.setPreferredSize(new Dimension(635,30));
+		    title.setPreferredSize(new Dimension(715,30));
 	        title.setOpaque(true);
 	        
 		    JLabel ltitle = new JLabel("Welcome to Vendor Management Portal");
@@ -62,7 +62,7 @@ public class LoginHelper extends JDialog{
 			//Panel for Picture
 			JPanel picpanel = new JPanel(new BorderLayout());
 	    	picpanel.setBackground(Color.WHITE);
-	    	picpanel.setPreferredSize(new Dimension(320, 400));
+	    	picpanel.setPreferredSize(new Dimension(360, 400));
 	     	picpanel.setOpaque(true);
 	    	//picpanel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED,Color.gray, Color.gray));
 			
@@ -70,7 +70,7 @@ public class LoginHelper extends JDialog{
 		    //JLabel picLabel = new JLabel(new ImageIcon(LoginPicture));
 	    	picLabel.setBackground(Color.WHITE);
 		    picLabel.setIcon(imageIcon);
-		    picLabel.setPreferredSize(new Dimension(320, 400));
+		    picLabel.setPreferredSize(new Dimension(360, 400));
 		    picLabel.setHorizontalAlignment(JLabel.CENTER);
 	        picLabel.setVerticalAlignment(JLabel.CENTER);
 		    //picLabel.setBorder(blackline);
@@ -78,7 +78,7 @@ public class LoginHelper extends JDialog{
 	        
 			//Panel for Username and Input 
 	        JPanel inppanel = new JPanel(new GridBagLayout());
-	        inppanel.setPreferredSize(new Dimension(320, 400));
+	        inppanel.setPreferredSize(new Dimension(360, 400));
 	    	inppanel.setBackground(Color.WHITE);
 	    	inppanel.setOpaque(true);
 		    //inppanel.setBorder(blackline);
