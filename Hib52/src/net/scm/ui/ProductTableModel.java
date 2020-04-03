@@ -12,7 +12,7 @@ public class ProductTableModel extends AbstractTableModel
 	private final List<ProductModel> productList;
 	private final String[] columnNames = new String[] 
 	{
-		"Name", "ProductID", "Price", "Industry", "Make", "Supplied To"
+		"Name", "ProductID", "Price", "Industry", "Fuel Type", "Supplied To"
     };
 	
 	private final Class[] columnClass = new Class[] 

@@ -44,6 +44,7 @@ public class PartUI extends JDialog
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final String RUPEE = "\u20B9";
 	public JFrame parent1;
 	public Session session;
 	
@@ -217,7 +218,7 @@ public class PartUI extends JDialog
 		formpanel.add(tfPartMaterial, gbc_partMaterial );	
 		
 		//Typical Price 
-	    JLabel lblPartTypPrice = new JLabel("Typical Price($)");
+	    JLabel lblPartTypPrice = new JLabel("Typical Price("+ RUPEE +")");
 	    lblPartTypPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblPartTypPrice = new GridBagConstraints();
 		gbc_lblPartTypPrice.anchor = GridBagConstraints.EAST;

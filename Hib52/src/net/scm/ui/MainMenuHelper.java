@@ -93,6 +93,7 @@ public class MainMenuHelper extends JDialog
 
  
     	//Dummy dashboard values to avoid fetch during testing.....
+	   	/*
     	countProducts=2;
     	countVendors=3;
     	countParts=4;
@@ -100,9 +101,9 @@ public class MainMenuHelper extends JDialog
     	countProdCycles=6;
     	countOrders=7;
     	countBoms=8;
+    	 */
 
 
-    	   	/*
     	 { 
         	List<ProductModel> Products;
         	List<VendorModel> Vendors;
@@ -143,7 +144,7 @@ public class MainMenuHelper extends JDialog
             ProdCycleTableModel model6 = new ProdCycleTableModel(ProdCycles);
             countProdCycles = model6.getRowCount();
     	}     	
-    	 */
+
     	JLabel sclProduct = new JLabel("Products");
     	sclProduct.setHorizontalAlignment(SwingConstants.CENTER);
     	sclProduct.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -289,6 +290,7 @@ public class MainMenuHelper extends JDialog
         m1.setEnabled(false);m2.setEnabled(false);m3.setEnabled(false);
         z.add(m1); z.add(m2); z.add(m3);
         e = new JMenu("GENERATE");r1 = new JMenuItem("ORDER LIST"); r2 = new JMenuItem("PURCHASE ORDERS");//r3 = new JMenuItem("PRINT INVOICE");
+        r2.setEnabled(false);
         e.add(r1); e.add(r2); //e.add(r3);
         f = new JMenu("ABOUT"); a1 = new JMenuItem("ABOUT SOFTWARE"); a2 = new JMenuItem("ABOUT DEVELOPER"); a3 = new JMenuItem("ABOUT COMPANY");
         //a1.setEnabled(false);

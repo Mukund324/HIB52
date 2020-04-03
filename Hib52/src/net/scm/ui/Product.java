@@ -35,6 +35,7 @@ import net.scm.ui.Product;
 public class Product extends JDialog
 {
 	private static final long serialVersionUID = 1L;
+	public static final String RUPEE = "\u20B9";
 	public JFrame parent1;
 	public Session session;
 
@@ -137,7 +138,7 @@ public class Product extends JDialog
 		formpanel.add(tfProdName, gbc_prodName);
 		tfProdName.setColumns(30);
 		
-		JLabel lbPrice = new JLabel("Price ");
+		JLabel lbPrice = new JLabel("Price(" + RUPEE +")");
 		lbPrice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblProductPrice = new GridBagConstraints();
 		gbc_lblProductPrice.anchor = GridBagConstraints.EAST;
@@ -179,7 +180,7 @@ public class Product extends JDialog
 		gbc_ProdRating.gridy = 7;
 		formpanel.add(tfRating, gbc_ProdRating);
 		
-		JLabel lbMake = new JLabel("Make");
+		JLabel lbMake = new JLabel("Fuel Type");
 		lbMake.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblProdMake = new GridBagConstraints();
 		gbc_lblProdMake.anchor = GridBagConstraints.EAST;
@@ -190,7 +191,7 @@ public class Product extends JDialog
 		
 		JComboBox tfMake = new JComboBox();
 		tfMake.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfMake.setModel(new DefaultComboBoxModel(new String[] {"Plastic", "Metal", "Wood", "Fibre"}));
+		tfMake.setModel(new DefaultComboBoxModel(new String[] {"Petrol", "Diesel", "Electric", "Hybrid"}));
 		GridBagConstraints gbc_ProdMakeSelect = new GridBagConstraints();
 		gbc_ProdMakeSelect.gridwidth = 2;
 		gbc_ProdMakeSelect.insets = new Insets(10, 10, 10, 5);

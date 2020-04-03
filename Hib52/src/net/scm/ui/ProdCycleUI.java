@@ -200,7 +200,7 @@ public class ProdCycleUI extends JDialog
 
 		JComboBox tfProdCycStDtDay = new JComboBox();
 		tfProdCycStDtDay.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfProdCycStDtDay.setModel(new DefaultComboBoxModel(new String[] {
+		tfProdCycStDtDay.setModel(new DefaultComboBoxModel(new String[] {"--",
 																		 "01","02", "03", "04","05",
 																		 "06","07", "08", "09","10",
 																		 "11","12", "13", "14","15",
@@ -220,7 +220,7 @@ public class ProdCycleUI extends JDialog
 	
 		JComboBox tfProdCycStDtMonth = new JComboBox();
 		tfProdCycStDtMonth.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfProdCycStDtMonth.setModel(new DefaultComboBoxModel(new String[] {
+		tfProdCycStDtMonth.setModel(new DefaultComboBoxModel(new String[] { "---",
 																		 "Jan","Feb", "Mar", "Apr","May",
 																		 "Jun","Jul", "Aug", "Sep","Oct",
 																		 "Nov","Dec"
@@ -236,7 +236,7 @@ public class ProdCycleUI extends JDialog
 	
 		JComboBox tfProdCycStDtYear = new JComboBox();
 		tfProdCycStDtYear.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfProdCycStDtYear.setModel(new DefaultComboBoxModel(new String[] {
+		tfProdCycStDtYear.setModel(new DefaultComboBoxModel(new String[] {"----",
 																		 "2020","2021", "2022", "2023","2024",
 																		 "2025","2026", "2027", "2028","2029",
 																		 "2030"

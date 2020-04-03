@@ -160,6 +160,7 @@ public class OrderListUI extends JDialog {
 		btnReset = new JButton("Reset");
 	    btnMenu = new JButton("Back to Menu");
 	    bp.add(btnGen);
+	    btnGen.setEnabled(false);
 	    bp.add(btnReset);
 	    bp.add(btnMenu);
 	    
@@ -383,6 +384,7 @@ public class OrderListUI extends JDialog {
                     {
                         JRadioButton button = (JRadioButton) e.getSource();
                     	selCritPrice=true;	selCritQuality=false; selCritLeadTime=false; selCritOptimal=false;
+                    	btnGen.setEnabled(true);
                         System.out.println("Selected Price Optimization");
                     }
                 };
@@ -392,6 +394,7 @@ public class OrderListUI extends JDialog {
                     {
                         JRadioButton button = (JRadioButton) e.getSource();
                         selCritPrice=false;	selCritLeadTime=true; selCritQuality=false;  selCritOptimal=false;
+                    	btnGen.setEnabled(false);
                         System.out.println("Selected LeadTime Optimization");
                     }
                 };
@@ -401,6 +404,7 @@ public class OrderListUI extends JDialog {
                     {
                         JRadioButton button = (JRadioButton) e.getSource();
                         selCritPrice=false;	selCritLeadTime=false; selCritQuality=true; selCritOptimal=false;
+                        btnGen.setEnabled(false);
                         System.out.println("Selected Quality Optimization");
                     }
                 };
@@ -410,6 +414,7 @@ public class OrderListUI extends JDialog {
                     {
                         JRadioButton button = (JRadioButton) e.getSource();
                         selCritPrice=false;	selCritLeadTime=false; selCritQuality=false; selCritOptimal=true;
+                        btnGen.setEnabled(false);
                         System.out.println("Selected Combined Optimization");
                     }
                 };
@@ -581,27 +586,35 @@ public class OrderListUI extends JDialog {
                 olTable.addCell(cell);
                 cell = new PdfPCell(new Phrase("Part Name", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
                 cell.setBackgroundColor(new Color(238,232,170));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 olTable.addCell(cell);
                 cell = new PdfPCell(new Phrase("Vendor Name", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
                 cell.setBackgroundColor(new Color(238,232,170));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 olTable.addCell(cell);
                 cell = new PdfPCell(new Phrase("Vendor Addr1", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
                 cell.setBackgroundColor(new Color(238,232,170));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 olTable.addCell(cell);
                 cell = new PdfPCell(new Phrase("City", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
                 cell.setBackgroundColor(new Color(238,232,170));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 olTable.addCell(cell);
                 cell = new PdfPCell(new Phrase("Country", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
                 cell.setBackgroundColor(new Color(238,232,170));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 olTable.addCell(cell);
                 cell = new PdfPCell(new Phrase("Supply Price", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
                 cell.setBackgroundColor(new Color(238,232,170));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 olTable.addCell(cell);
                 cell = new PdfPCell(new Phrase("Lead Time", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
                 cell.setBackgroundColor(new Color(238,232,170));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 olTable.addCell(cell);
                 cell = new PdfPCell(new Phrase("Quality", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
                 cell.setBackgroundColor(new Color(238,232,170));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 olTable.addCell(cell);
                 olTable.setHeaderRows(0);
                 
@@ -650,6 +663,11 @@ public class OrderListUI extends JDialog {
                 Paragraph Choice = new Paragraph(new Phrase(new Chunk("List Order Priority : Lowest Price",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new Color(0,0,128)))));
                 Choice.setAlignment(Paragraph.ALIGN_CENTER);
                 Choice.setSpacingBefore(5f);
+                
+                Paragraph Footer = new Paragraph(new Phrase(new Chunk("Order List Created by Mukund.G and Sriranjan.S, 4th Semester Information Science, NMIT Bangalore.",
+                											FontFactory.getFont(FontFactory.TIMES_ITALIC, 11, Font.PLAIN, new Color(0,0,128)))));
+                Footer.setAlignment(Paragraph.ALIGN_CENTER);
+                Footer.setSpacingBefore(5f);
                
                 Document doc = new Document();
                 doc.setPageSize(PageSize.A4.rotate());
@@ -663,7 +681,8 @@ public class OrderListUI extends JDialog {
                 
                 try { doc.add(Title);} catch (DocumentException e1) {e1.printStackTrace();}  
                 try { doc.add(Choice);} catch (DocumentException e1) {e1.printStackTrace();}    
-                try { doc.add(olTable);} catch (DocumentException e1) {e1.printStackTrace();}   
+                try { doc.add(olTable);} catch (DocumentException e1) {e1.printStackTrace();}  
+                try { doc.add(Footer);} catch (DocumentException e1) {e1.printStackTrace();}  
                 
                 doc.close();
                 try {rfile.close(); } catch (IOException e1) {e1.printStackTrace();}
