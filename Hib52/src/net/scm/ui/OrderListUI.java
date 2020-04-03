@@ -1,4 +1,16 @@
 package net.scm.ui;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfCell;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+
 import net.scm.core.*;
 import net.scm.model.*;
 
@@ -70,6 +82,7 @@ public class OrderListUI extends JDialog {
 
 	public String ProdCycProdId;
 	public String ProdCycProdName;
+	public String ProdCycName;
 	public Date ProdCycStDt;
 	public Integer ProdCycCapPrice;
 	
@@ -224,6 +237,7 @@ public class OrderListUI extends JDialog {
                 tr.commit();
                 //Assign the Product ID needed for search from the ProdCyc choice to search the BoM for the list of Part Names
                 ProdCycProdId= prodcyc.getprodcycId();
+                ProdCycName = prodcyc.getprodcycName();
                 ProdCycProdName= prodcyc.getprodcycProd() ;
                 ProdCycStDt = prodcyc.getprodcycStDt() ;
             	ProdCycCapPrice= prodcyc.getprodcycCapPrice();
@@ -489,11 +503,12 @@ public class OrderListUI extends JDialog {
         {     	 
             public void actionPerformed(ActionEvent e) 
             {
-            	po.show();
-            	
+
+
             	SessionFactory sessFact = HibernateUtil.getSessionFactory();
         		session = sessFact.getCurrentSession();
         		org.hibernate.Transaction tr = session.beginTransaction();
+        		
         		//Fetch the Parts for the Product from the BOM Table 
         		CriteriaBuilder builder = session.getCriteriaBuilder();
                 javax.persistence.criteria.CriteriaQuery<BoMModel> query = builder.createQuery(BoMModel.class);
@@ -501,9 +516,9 @@ public class OrderListUI extends JDialog {
         	    System.out.println(ProdCycProdName);
                 query.select(root).where(builder.equal(root.get("bomProdName"), ProdCycProdName));
                 Query<BoMModel> q=session.createQuery(query);
-                //q.setMaxResults(1);
+                //q.setMaxResults(5);
                 List<BoMModel> bomList=q.getResultList();
-                //bomList.forEach(System.out::println);
+                bomList.forEach(System.out::println);
               
             	List<Order> ordListFullPrice = new ArrayList<Order>();
             	List<SupplyModel> supListFullLeadTime = new ArrayList<SupplyModel>();
@@ -540,11 +555,119 @@ public class OrderListUI extends JDialog {
                 		TypedQuery<Order> tq = session.createQuery(cq);
                 		tq.setMaxResults(1);
                 		List<Order> ordList=tq.getResultList();
-                		//ordList.forEach(System.out::println);
+                		ordList.forEach(System.out::println);
                 		ordListFullPrice.addAll(ordList);
                 	} 
                 	ordListFullPrice.forEach(System.out::println);
                 }
+
+                
+                PdfPTable olTable = new PdfPTable(9);
+                olTable.setHorizontalAlignment(Element.ALIGN_CENTER);
+                olTable.setWidthPercentage(95);
+                olTable.setSpacingBefore(10f); 
+                try {
+					olTable.setWidths(new float[]{1,3,3,4,1,1,1,1,1});
+				} catch (DocumentException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
+               
+                PdfPCell cell;
+
+                cell = new PdfPCell(new Phrase("Part ID", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
+                cell.setBackgroundColor(new Color(238,232,170));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                olTable.addCell(cell);
+                cell = new PdfPCell(new Phrase("Part Name", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
+                cell.setBackgroundColor(new Color(238,232,170));
+                olTable.addCell(cell);
+                cell = new PdfPCell(new Phrase("Vendor Name", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
+                cell.setBackgroundColor(new Color(238,232,170));
+                olTable.addCell(cell);
+                cell = new PdfPCell(new Phrase("Vendor Addr1", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
+                cell.setBackgroundColor(new Color(238,232,170));
+                olTable.addCell(cell);
+                cell = new PdfPCell(new Phrase("City", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
+                cell.setBackgroundColor(new Color(238,232,170));
+                olTable.addCell(cell);
+                cell = new PdfPCell(new Phrase("Country", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
+                cell.setBackgroundColor(new Color(238,232,170));
+                olTable.addCell(cell);
+                cell = new PdfPCell(new Phrase("Supply Price", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
+                cell.setBackgroundColor(new Color(238,232,170));
+                olTable.addCell(cell);
+                cell = new PdfPCell(new Phrase("Lead Time", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
+                cell.setBackgroundColor(new Color(238,232,170));
+                olTable.addCell(cell);
+                cell = new PdfPCell(new Phrase("Quality", FontFactory.getFont(FontFactory.COURIER, 8, Font.PLAIN, new Color(255, 0, 0))));
+                cell.setBackgroundColor(new Color(238,232,170));
+                olTable.addCell(cell);
+                olTable.setHeaderRows(0);
+                
+                for (Order ordLineItem : ordListFullPrice) 
+                {
+                	cell = new PdfPCell(new Phrase(ordLineItem.getpartId(), FontFactory.getFont(FontFactory.COURIER, 6, Font.PLAIN, new Color(0, 0, 0))));
+                	cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    olTable.addCell(cell);
+                	cell = new PdfPCell(new Phrase(ordLineItem.getpartName(), FontFactory.getFont(FontFactory.COURIER, 6, Font.PLAIN, new Color(0, 0, 0))));
+                	cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    olTable.addCell(cell);
+                	cell = new PdfPCell(new Phrase(ordLineItem.getvendName(), FontFactory.getFont(FontFactory.COURIER, 6, Font.PLAIN, new Color(0, 0, 0))));
+                	cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    olTable.addCell(cell);
+                	cell = new PdfPCell(new Phrase(ordLineItem.getvendAddr1(), FontFactory.getFont(FontFactory.COURIER, 6, Font.PLAIN, new Color(0, 0, 0))));
+                	cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    olTable.addCell(cell);
+                	cell = new PdfPCell(new Phrase(ordLineItem.getvendCity(), FontFactory.getFont(FontFactory.COURIER, 6, Font.PLAIN, new Color(0, 0, 0))));
+                	cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    olTable.addCell(cell);
+                	cell = new PdfPCell(new Phrase(ordLineItem.getvendCountry(), FontFactory.getFont(FontFactory.COURIER, 6, Font.PLAIN, new Color(0, 0, 0))));
+                	cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    olTable.addCell(cell);
+                	cell = new PdfPCell(new Phrase(Integer.toString(ordLineItem.getvendSupplyPrice()), FontFactory.getFont(FontFactory.COURIER, 6, Font.PLAIN, new Color(0, 0, 0))));
+                	cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                    olTable.addCell(cell);
+                	cell = new PdfPCell(new Phrase(Integer.toString(ordLineItem.getvendSupplyLeadTime()), FontFactory.getFont(FontFactory.COURIER, 6, Font.PLAIN, new Color(0, 0, 0))));
+                	cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    olTable.addCell(cell);
+                   	cell = new PdfPCell(new Phrase(ordLineItem.getvendSupplyClass(), FontFactory.getFont(FontFactory.COURIER, 6, Font.PLAIN, new Color(0, 0, 0))));
+                   	cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    olTable.addCell(cell);
+                }
+               
+                FileOutputStream rfile = null;
+                try {
+					rfile = new FileOutputStream("D:\\OrderListPrice.pdf");
+				} catch (FileNotFoundException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+                
+                Paragraph Title = new Paragraph(new Phrase(new Chunk("Order List for Production Batch# "+ ProdCycName,FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new Color(0,100,0)))));
+                Title.setAlignment(Paragraph.ALIGN_CENTER);
+                
+                Paragraph Choice = new Paragraph(new Phrase(new Chunk("List Order Priority : Lowest Price",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new Color(0,0,128)))));
+                Choice.setAlignment(Paragraph.ALIGN_CENTER);
+                Choice.setSpacingBefore(5f);
+               
+                Document doc = new Document();
+                doc.setPageSize(PageSize.A4.rotate());
+                doc.setMargins(0f,0f,10f,0f); 
+                try 
+                {
+                	PdfWriter writer = PdfWriter.getInstance(doc, rfile);
+				} catch (DocumentException e1) {e1.printStackTrace();}
+                
+                doc.open();
+                
+                try { doc.add(Title);} catch (DocumentException e1) {e1.printStackTrace();}  
+                try { doc.add(Choice);} catch (DocumentException e1) {e1.printStackTrace();}    
+                try { doc.add(olTable);} catch (DocumentException e1) {e1.printStackTrace();}   
+                
+                doc.close();
+                try {rfile.close(); } catch (IOException e1) {e1.printStackTrace();}
+                
             	//Iterate through the BOM part List to find the list of vendors for a given part for least lead time on top
 /*                if (selCritPrice==true)
                 {
@@ -565,7 +688,7 @@ public class OrderListUI extends JDialog {
                 	} 
                 	supListFullPrice.forEach(System.out::println);
                 }
-*/               
+              
                 //Iterate through the BOM part List to find the list of vendors for a given part and arrange for least lead time on top 
                 if (selCritLeadTime==true)
                 {    	
@@ -603,7 +726,7 @@ public class OrderListUI extends JDialog {
                 		supListFullQlty.addAll(supList); 
                 	}  
                 	supListFullQlty.forEach(System.out::println);
-                }
+                }*/ 
                 tr.commit(); 
             }
         });

@@ -157,7 +157,7 @@ public class Product extends JDialog
 		formpanel.add(tfPrice, gbc_textField);
 		tfPrice.setColumns(10);
 		
-		JLabel lbRating = new JLabel("Rating");
+		JLabel lbRating = new JLabel("Industry");
 		lbRating.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblProdRating = new GridBagConstraints();
 		gbc_lblProdRating.anchor = GridBagConstraints.EAST;
@@ -168,7 +168,9 @@ public class Product extends JDialog
 		
 		JComboBox tfRating = new JComboBox();
 		tfRating.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tfRating.setModel(new DefaultComboBoxModel(new String[] {"None", "Gold", "Silver", "Bronze"}));
+		tfRating.setModel(new DefaultComboBoxModel(new String[] {"None", "Automotive", "Aircraft", "Home Appliances",
+															     "Toys", "Pharmacy", "Electronics", "Farm Machinery"
+																}));
 		GridBagConstraints gbc_ProdRating = new GridBagConstraints();
 		gbc_ProdRating.gridwidth = 2;
 		gbc_ProdRating.insets = new Insets(10, 10, 10, 5);
@@ -197,7 +199,7 @@ public class Product extends JDialog
 		gbc_ProdMakeSelect.gridy = 9;
 		formpanel.add(tfMake, gbc_ProdMakeSelect);
 		
-		JLabel lbCountry = new JLabel("Country");
+		JLabel lbCountry = new JLabel("Supplied To");
 		lbCountry.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblProdCountry = new GridBagConstraints();
 		gbc_lblProdCountry.anchor = GridBagConstraints.EAST;
@@ -288,8 +290,6 @@ public class Product extends JDialog
     	GridBagConstraints gs = new GridBagConstraints();
     	gs.fill = GridBagConstraints.HORIZONTAL;
     	
-    	//JOptionPane.showMessageDialog(Product.this, "! You are in List Product !!!", "PRODUCT",
-               // JOptionPane.INFORMATION_MESSAGE);   	
     	{
      		SessionFactory sessFact = HibernateUtil.getSessionFactory();
     		session = sessFact.getCurrentSession();
@@ -299,17 +299,17 @@ public class Product extends JDialog
     		Products = criteria.list();
 
     		Iterator<ProductModel> itr = Products.iterator();
-    		
+    		 /* 
     		while (itr.hasNext()) {
     			ProductModel prodM = itr.next();
       		    System.out.println(prodM.getProdName());
-    		 /* System.out.println(prodM.getId());
+    			System.out.println(prodM.getId());
     			System.out.println(prodM.getProdPrice());
     			System.out.println(prodM.getProdRating());
     			System.out.println(prodM.getProdMake());
        			System.out.println(prodM.getProdCountry());
-       		 */
-    		}
+       		 
+    		}*/
     		tr.commit();
     		//System.out.println("Data displayed for Product");
 

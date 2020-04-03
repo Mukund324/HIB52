@@ -401,16 +401,17 @@ public class VendorUI extends JDialog
 				Vendors = criteria.list();
 
 	    		Iterator<VendorModel> itr = Vendors.iterator();
-	    		
+	    		/*
 	    		while (itr.hasNext()) {
 
 	    			VendorModel vendM = itr.next();
 	    			System.out.println(vendM.getvendName());
-	    			/* 
+	    		 
 	    			 * Add more field to be displayed on the console
 	    			 * System.out.println(vendM.getvendAddr1());
-	       			*/
+	       			
 	    		}
+	    		*/
 	    		tr.commit();
 	    		System.out.println("Data displayed");
 

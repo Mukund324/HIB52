@@ -319,8 +319,8 @@ public class PartUI extends JDialog
         		partModel.setpartProf(tfPartProfile.getSelectedItem().toString());
         		partModel.setpartMaterial(tfPartMaterial.getSelectedItem().toString());
         		partModel.setpartSpec(tfPartSpec.getText());
-        		partModel.setpartTypPrice(Integer.parseInt(tfPartTypPrice.getText()));	
-        		partModel.setpartTypSuppSch(Integer.parseInt(tfPartTypDlvTime.getText()));
+        		partModel.setpartTypPrice(Integer.parseInt(tfPartTypPrice.getText().trim()));	
+        		partModel.setpartTypSuppSch(Integer.parseInt(tfPartTypDlvTime.getText().trim()));
         		partModel.setpartQlyStd(tfPartQltyStd.getText());
 
         		session.save(partModel);
@@ -368,16 +368,17 @@ public class PartUI extends JDialog
 				Parts = criteria.list();
 
 	    		Iterator<PartModel> itr = Parts.iterator();
-	    		
+	    		/* 
 	    		while (itr.hasNext()) {
-
+	    			
 	    			PartModel vendM = itr.next();
 	    			System.out.println(vendM.getpartName());
-	    			/* 
+	    		
 	    			 * Add more field to be displayed on the console
 	    			 * System.out.println(vendM.getvendAddr1());
-	       			*/
+	       			
 	    		}
+	    		*/
 	    		tr.commit();
 	    		System.out.println("Data displayed for Parts");
 

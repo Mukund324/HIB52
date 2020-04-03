@@ -238,7 +238,7 @@ public class BoMUI extends JDialog {
                 query.select(root).where(builder.equal(root.get("prodName"),selected));  
                 Query<ProductModel> q=session.createQuery(query);             
                 ProductModel product=q.getSingleResult();
-                System.out.println(product.getProdName());               
+                //System.out.println(product.getProdName());               
 
                 tr.commit();
                 
@@ -603,16 +603,17 @@ public class BoMUI extends JDialog {
 
     		Iterator<BoMModel> itr = BoMs.iterator();
     		
+    		/*
     		while (itr.hasNext()) {
     			BoMModel BoMM = itr.next();
       		    System.out.println(BoMM.getbomProdName());
-    		 /* System.out.println(prodM.getId());
+    		    System.out.println(prodM.getId());
     			System.out.println(prodM.getProdPrice());
     			System.out.println(prodM.getProdRating());
     			System.out.println(prodM.getProdMake());
        			System.out.println(prodM.getProdCountry());
-       		 */
-    		}
+       		 
+    		}*/
     		tr.commit();
     		System.out.println("Data displayed for Product");
 

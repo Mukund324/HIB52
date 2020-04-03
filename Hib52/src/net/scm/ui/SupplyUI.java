@@ -673,15 +673,17 @@ public class SupplyUI extends JDialog {
 
 	    		Iterator<SupplyModel> itr = Supplies.iterator();
 	    		
+	    		/* 
 	    		while (itr.hasNext()) {
 
 	    			SupplyModel suppM = itr.next();
 	    			System.out.println(suppM.getpartName());
-	    			/* 
+	    		
 	    			 * Add more field to be displayed on the console
 	    			 * System.out.println(vendM.getvendAddr1());
-	       			*/
+	       			
 	    		}
+	    		*/
 	    		tr.commit();
 	    		System.out.println("Data displayed for Supplies");
 
