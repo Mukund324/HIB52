@@ -554,7 +554,7 @@ public class BoMUI extends JDialog {
         		bomModel.setbomPartId(insPartId);
         		bomModel.setbomProdName(insProdName);
         		bomModel.setbomPartName(insPartName);
-        		bomModel.setbomPartQty(Integer.parseInt(tfPartQty.getText()));
+        		bomModel.setbomPartQty(Integer.parseInt(tfPartQty.getText().trim()));
          		session.save(bomModel);
         		tr.commit();
         		System.out.println("Successfully inserted BoM Info");        		

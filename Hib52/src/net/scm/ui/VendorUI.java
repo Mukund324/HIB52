@@ -170,7 +170,7 @@ public class VendorUI extends JDialog
 		formpanel.add(tfVendAddr1, gbc_vendAddr1);
 		
 		//Building Label
-	    JLabel lblVendAddr2 = new JLabel("Street Name");
+	    JLabel lblVendAddr2 = new JLabel("State");
 	    lblVendAddr2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblVendAddr2 = new GridBagConstraints();
 		gbc_lblVendAddr2.anchor = GridBagConstraints.EAST;
@@ -327,7 +327,7 @@ public class VendorUI extends JDialog
 	        		session = sessFact.getCurrentSession();
 	        		org.hibernate.Transaction tr = session.beginTransaction();
 	        		VendorModel vendModel = new VendorModel();
-	        		//vendModel.setvendId(tfVendID.getText());
+	        		vendModel.setvendId(tfVendID.getText());
 	        		vendModel.setvendName(tfVendName.getText());
 	        		vendModel.setvendAddr1(tfVendAddr1.getText());
 	        		vendModel.setvendAddr2(tfVendAddr2.getText());	

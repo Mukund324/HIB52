@@ -10,7 +10,7 @@ public class VendorTableModel extends AbstractTableModel
 	private final List<VendorModel> vendorList;
 	private final String[] columnNames = new String[] 
 	{
-		"NAME",  "VENDORID",  "BLDG#", "STREET", "CITY", "COUNTRY","PIN/ZIP","PROFILE","TIN"
+		"NAME",  "VENDORID",  "BLDG#", "STATE", "CITY", "COUNTRY","PIN/ZIP","PROFILE","TIN"
     };
 	private final Class[] columnClass = new Class[] 
 	{
