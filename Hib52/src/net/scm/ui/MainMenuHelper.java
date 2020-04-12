@@ -288,7 +288,7 @@ public class MainMenuHelper extends JDialog
         y = new JMenu("PLAN"); p1 = new JMenuItem("BILL OF MATERIALS");p2 = new JMenuItem("SUPPLY OF MATERIALS");p3 = new JMenuItem("PRODUCTION BATCH");
         y.add(p1); y.add(p2); y.add(p3);     
         z = new JMenu("MANAGE"); m1 = new JMenuItem("VENDOR"); m2 = new JMenuItem("PRODUCT"); m3 = new JMenuItem("PART");
-        m1.setEnabled(false);m2.setEnabled(true);m3.setEnabled(false);
+        m1.setEnabled(true);m2.setEnabled(true);m3.setEnabled(false);
         z.add(m1); z.add(m2); z.add(m3);
         e = new JMenu("GENERATE");r1 = new JMenuItem("ORDER LIST"); r2 = new JMenuItem("PURCHASE ORDERS");//r3 = new JMenuItem("PRINT INVOICE");
         r2.setEnabled(false);
@@ -417,6 +417,19 @@ public class MainMenuHelper extends JDialog
             }
         }); //End of View->Supplies
         
+        
+        //Define Action Listeners for each of the MANAGE components 
+        m1.addActionListener(new ActionListener() 
+        {
+        	public void actionPerformed(ActionEvent e) 
+            {
+        		 System.out.println("You have chosen Manage->vendor !!!");
+             	 dispose();
+            	 VendorUI vframe=new VendorUI(parent1);
+            	 vframe.VendorManageUI();
+             	 vframe.setVisible(true);
+            }
+        }); //End of Create->Product
       //Define Action Listeners for each of the MANAGE components 
         m2.addActionListener(new ActionListener() 
         {
@@ -429,6 +442,7 @@ public class MainMenuHelper extends JDialog
              	 pframe.setVisible(true);
             }
         }); //End of Create->Product
+        
         
         //Define Action Listeners for each of the PLAN components 
         p1.addActionListener(new ActionListener() 

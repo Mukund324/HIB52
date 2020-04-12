@@ -256,7 +256,7 @@ public class ProductUI extends JDialog
 	    JPanel bp = FormatHelper.getFormattedBpPanel();  
 	    FormatHelper.setTitleLabel(title, "Vendor Management Portal >> View >> Product" );
 	    
-	    FormatHelper.setFormattedFormLabel(selpanel, "Select Product to Edit",                  0, 0,12);
+	    FormatHelper.setFormattedFormLabel(selpanel, "Select Product to Edit",  0, 0,12);
 	
 		SessionFactory sessFact1 = HibernateUtil.getSessionFactory();
 		session = sessFact1.getCurrentSession();
