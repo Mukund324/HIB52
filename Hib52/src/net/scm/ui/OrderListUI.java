@@ -394,7 +394,7 @@ public class OrderListUI extends JDialog {
                     {
                         JRadioButton button = (JRadioButton) e.getSource();
                         selCritPrice=false;	selCritLeadTime=true; selCritQuality=false;  selCritOptimal=false;
-                    	btnGen.setEnabled(false);
+                    	btnGen.setEnabled(true);
                         System.out.println("Selected LeadTime Optimization");
                     }
                 };
@@ -404,7 +404,7 @@ public class OrderListUI extends JDialog {
                     {
                         JRadioButton button = (JRadioButton) e.getSource();
                         selCritPrice=false;	selCritLeadTime=false; selCritQuality=true; selCritOptimal=false;
-                        btnGen.setEnabled(false);
+                        btnGen.setEnabled(true);
                         System.out.println("Selected Quality Optimization");
                     }
                 };
@@ -414,7 +414,7 @@ public class OrderListUI extends JDialog {
                     {
                         JRadioButton button = (JRadioButton) e.getSource();
                         selCritPrice=false;	selCritLeadTime=false; selCritQuality=false; selCritOptimal=true;
-                        btnGen.setEnabled(false);
+                        btnGen.setEnabled(true);
                         System.out.println("Selected Combined Optimization");
                     }
                 };
@@ -565,8 +565,130 @@ public class OrderListUI extends JDialog {
                 	} 
                 	ordListFullPrice.forEach(System.out::println);
                 }
-
+               
+               //FOR LEAD TIME OPTION 
+               if (selCritLeadTime==true)
+               {
+               	for (BoMModel bomlineitem : bomList) 
+               	{   
+               		//System.out.println(">>>>>>>>>>>>> BOM PART ID: "+bomlineitem.getbomPartId()+"----------------------------------------------------");               		
+               		CriteriaBuilder cb = session.getCriteriaBuilder();
+               		javax.persistence.criteria.CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+               		Root<SupplyModel> supply = cq.from(SupplyModel.class); 
+               		Root<VendorModel> vend = cq.from(VendorModel.class); 
+               		//Join<SupplyModel,VendorModel> suppJvend = supply.join("vendId",JoinType.INNER);
+               		
+               		Predicate eqToProdId = cb.equal(supply.get("partId"), bomlineitem.getbomPartId());
+               		Predicate eqSupVendId = cb.equal(supply.get("vendId"), vend.get("vendId"));
+               		cq.multiselect(
+               						supply.get("partId"),
+               						supply.get("partName"),
+               						supply.get("vendId"),
+               						supply.get("vendName"),
+               						vend.get("vendAddr1"),
+               						vend.get("vendCity"),
+               						vend.get("vendCountry"),
+               						vend.get("vendPin"),
+               						vend.get("vendTin"),
+               						supply.get("vendSupplyClass"),
+               						supply.get("vendSupplyLeadTime"),
+               						supply.get("vendSupplyPrice")                				       
+               				      ).where(cb.and(eqToProdId, eqSupVendId)).orderBy(cb.asc(supply.get("vendSupplyLeadTime")));
+               		TypedQuery<Order> tq = session.createQuery(cq);
+               		tq.setMaxResults(1);
+               		List<Order> ordList=tq.getResultList();
+               		ordList.forEach(System.out::println);
+               		ordListFullPrice.addAll(ordList);
+               	} 
+               	ordListFullPrice.forEach(System.out::println);
+               }
+               
+               //FOR BEST QUALITY OPTION 
+               if (selCritQuality==true)
+               {
+               	for (BoMModel bomlineitem : bomList) 
+               	{   
+               		//System.out.println(">>>>>>>>>>>>> BOM PART ID: "+bomlineitem.getbomPartId()+"----------------------------------------------------");               		
+               		CriteriaBuilder cb = session.getCriteriaBuilder();
+               		javax.persistence.criteria.CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+               		Root<SupplyModel> supply = cq.from(SupplyModel.class); 
+               		Root<VendorModel> vend = cq.from(VendorModel.class); 
+               		//Join<SupplyModel,VendorModel> suppJvend = supply.join("vendId",JoinType.INNER);
+               		
+               		Predicate eqToProdId = cb.equal(supply.get("partId"), bomlineitem.getbomPartId());
+               		Predicate eqSupVendId = cb.equal(supply.get("vendId"), vend.get("vendId"));
+               		cq.multiselect(
+               						supply.get("partId"),
+               						supply.get("partName"),
+               						supply.get("vendId"),
+               						supply.get("vendName"),
+               						vend.get("vendAddr1"),
+               						vend.get("vendCity"),
+               						vend.get("vendCountry"),
+               						vend.get("vendPin"),
+               						vend.get("vendTin"),
+               						supply.get("vendSupplyClass"),
+               						supply.get("vendSupplyLeadTime"),
+               						supply.get("vendSupplyPrice")                				       
+               				      ).where(cb.and(eqToProdId, eqSupVendId)).orderBy(cb.asc(supply.get("vendSupplyClass")));
+               		TypedQuery<Order> tq = session.createQuery(cq);
+               		tq.setMaxResults(1);
+               		List<Order> ordList=tq.getResultList();
+               		ordList.forEach(System.out::println);
+               		ordListFullPrice.addAll(ordList);
+               	} 
+               	ordListFullPrice.forEach(System.out::println);
+               }
                 
+             //FOR OPTIMAL OPTION 
+               if (selCritOptimal==true)
+               {
+               	for (BoMModel bomlineitem : bomList) 
+               	{   
+               		//System.out.println(">>>>>>>>>>>>> BOM PART ID: "+bomlineitem.getbomPartId()+"----------------------------------------------------");               		
+               		CriteriaBuilder cb = session.getCriteriaBuilder();
+               		javax.persistence.criteria.CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+               		Root<SupplyModel> supply = cq.from(SupplyModel.class); 
+               		Root<VendorModel> vend = cq.from(VendorModel.class); 
+               		//Join<SupplyModel,VendorModel> suppJvend = supply.join("vendId",JoinType.INNER);
+               		
+               		Predicate eqToProdId = cb.equal(supply.get("partId"), bomlineitem.getbomPartId());
+               		Predicate eqSupVendId = cb.equal(supply.get("vendId"), vend.get("vendId"));
+               		cq.multiselect(
+               						supply.get("partId"),
+               						supply.get("partName"),
+               						supply.get("vendId"),
+               						supply.get("vendName"),
+               						vend.get("vendAddr1"),
+               						vend.get("vendCity"),
+               						vend.get("vendCountry"),
+               						vend.get("vendPin"),
+               						vend.get("vendTin"),
+               						supply.get("vendSupplyClass"),
+               						supply.get("vendSupplyLeadTime"),
+               						supply.get("vendSupplyPrice")                				       
+               				      ).where(cb.and(eqToProdId, eqSupVendId)).orderBy(cb.asc(supply.get("vendSupplyClass")));
+               		TypedQuery<Order> tq = session.createQuery(cq);
+               		//tq.setMaxResults(1);
+               		List<Order> ordList=tq.getResultList();
+               		System.out.println(">>>>>>>>>>>>> Class<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"); 
+               		ordList.forEach(System.out::println);
+               		Collections.sort(ordList, new SortbyLeadTime());
+               		System.out.println(">>>>>>>>>>>>> LeadTime-------------------------------------------------");
+               		ordList.forEach(System.out::println);
+               		//Collections.reverse(ordList);
+               		Collections.sort(ordList, new SortbyPrice());
+               		System.out.println(">>>>>>>>>>>>> Price----------------------------------------------------");
+               		ordList.forEach(System.out::println);
+               		Order ordTop = ordList.get(0);
+               		System.out.println(">>>>>>>>>>>>> Selected ----------------------------------------------------");
+               		System.out.println(ordTop.toString());
+               		System.out.println(">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+               		ordListFullPrice.add(ordTop);
+               	} 
+               	//ordListFullPrice.forEach(System.out::println);
+               }
+               
                 PdfPTable olTable = new PdfPTable(9);
                 olTable.setHorizontalAlignment(Element.ALIGN_CENTER);
                 olTable.setWidthPercentage(95);
@@ -651,7 +773,7 @@ public class OrderListUI extends JDialog {
                
                 FileOutputStream rfile = null;
                 try {
-					rfile = new FileOutputStream("D:\\OrderListPrice.pdf");
+					rfile = new FileOutputStream("D:\\OrderList.pdf");
 				} catch (FileNotFoundException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -659,12 +781,36 @@ public class OrderListUI extends JDialog {
                 
                 Paragraph Title = new Paragraph(new Phrase(new Chunk("Order List for Production Batch# "+ ProdCycName,FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new Color(0,100,0)))));
                 Title.setAlignment(Paragraph.ALIGN_CENTER);
+                 
+                Paragraph Choice = new Paragraph(new Phrase(new Chunk("List Order Priority : LEAST PRICE",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new Color(0,0,128)))));
+                if (selCritPrice==true)
+                {
+                	Choice= new Paragraph(new Phrase(new Chunk("List Order Priority : LEAST PRICE",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new Color(0,0,128)))));
+                	Choice.setAlignment(Paragraph.ALIGN_CENTER);
+                    Choice.setSpacingBefore(5f);
+                }
+                if (selCritLeadTime==true)
+                {
+                	Choice = new Paragraph(new Phrase(new Chunk("List Order Priority : BEST LEAD TIME ",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new Color(0,0,128)))));
+                	Choice.setAlignment(Paragraph.ALIGN_CENTER);
+                    Choice.setSpacingBefore(5f);
+                }
                 
-                Paragraph Choice = new Paragraph(new Phrase(new Chunk("List Order Priority : Lowest Price",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new Color(0,0,128)))));
-                Choice.setAlignment(Paragraph.ALIGN_CENTER);
-                Choice.setSpacingBefore(5f);
+                if (selCritQuality==true)
+                {
+                	Choice = new Paragraph(new Phrase(new Chunk("List Order Priority : BEST QUALITY ",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new Color(0,0,128)))));
+                	Choice.setAlignment(Paragraph.ALIGN_CENTER);
+                    Choice.setSpacingBefore(5f);
+                }
                 
-                Paragraph Footer = new Paragraph(new Phrase(new Chunk("Order List Created by Mukund.G and Sriranjan.S, 4th Semester Information Science, NMIT Bangalore.",
+                if (selCritOptimal==true)
+                {
+                	Choice = new Paragraph(new Phrase(new Chunk("List Order Priority : OPTIMAL RESULT ",FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new Color(0,0,128)))));
+                	Choice.setAlignment(Paragraph.ALIGN_CENTER);
+                    Choice.setSpacingBefore(5f);
+                }
+                
+                Paragraph Footer = new Paragraph(new Phrase(new Chunk("Ordered List Created by Mukund.G and Sriranjan.S, 4th Semester Information Science, NMIT Bangalore.",
                 											FontFactory.getFont(FontFactory.TIMES_ITALIC, 11, Font.PLAIN, new Color(0,0,128)))));
                 Footer.setAlignment(Paragraph.ALIGN_CENTER);
                 Footer.setSpacingBefore(5f);

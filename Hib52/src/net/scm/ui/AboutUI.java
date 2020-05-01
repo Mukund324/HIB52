@@ -60,7 +60,7 @@ public class AboutUI extends JDialog
 	}
 	
     //Method to display UI for accepting Product inputs from User to Save into the DB  
-    public void AboutAddUI()
+    public void AboutAddProjectUI()
     {   	
 
     	//Create Panel for Title 
@@ -134,6 +134,76 @@ public class AboutUI extends JDialog
         setLocationRelativeTo(parent1);
         
      } 
+    	
+    
+    public void AboutAddDevUI()
+    {   	
 
+    	//Create Panel for Title 
+    	JPanel title = new JPanel();
+    	title.setBackground(Color.decode("#006666"));
+    	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+	    title.setPreferredSize(new Dimension(720,30));
+        title.setOpaque(true);
+       	//Create Panel for Menu       
+    	JPanel formpanel = new JPanel(new BorderLayout());
+        formpanel.setPreferredSize(new Dimension(720, 400));   
+		formpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+		formpanel.setBackground(Color.white);
+
+       	//Create Panel for Bottom (Adding Buttons for Operations)               
+	    JPanel bp = new JPanel();
+        bp.setBackground(Color.decode("#87CEFA"));
+        bp.setPreferredSize(new Dimension(720, 40));  
+    	title.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+        bp.setOpaque(true);
+        
+    	//Adding Components for the Title Panel    
+	    JLabel ltitle = new JLabel("Vendor Management Portal >> About >> Software");
+	    ltitle.setHorizontalAlignment(JLabel.CENTER);
+	    ltitle.setVerticalAlignment(JLabel.CENTER);
+	    ltitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,16));
+	    ltitle.setForeground(Color.WHITE);
+	    title.add(ltitle); 
+	    
+        JTextArea taAboutSW = new JTextArea();
+        String AboutSWP1 = 
+        		"DEVELOPER NAME: MUKUND.G                                                                                                                       "+
+        		"GITHUB: Mukund324";
+        String AboutSWP2 =
+        		"DEVELOPER NAME: SRIRANJAN.S                                                                                                                     "+
+                "GITHUB: craysri06";
+        String AboutSWP3 =                                                                                                                                       
+        		"Based on Product, Parts and Supplier Information, the Planning and Desing team can build a BILL OF MATERIALS(BOM) to enable the "+
+        		"Purchase and the Manufacturing teams to Purchase and Manufacture the Product.The Production Team can define the Production Batch to enable ";
+       
+        taAboutSW.setText("\n\n\n"+AboutSWP1+"\n\n"+AboutSWP2+"\n\n"+AboutSWP3);
+        taAboutSW.setLineWrap(true);
+        taAboutSW.setWrapStyleWord(true);
+        taAboutSW.setFont(new Font("Arial", Font.PLAIN, 14));
+        taAboutSW.setEditable(false);
+        formpanel.add(taAboutSW);
+
+        btnMenu   = new JButton("Back to Menu");
+        bp.add(btnMenu);
+      
+        btnMenu.addActionListener(new ActionListener() {
+        	 
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            	MainMenuHelper mmframe=new MainMenuHelper(parent1);
+            	mmframe.MainMenuUI();
+         		mmframe.setVisible(true);
+            }
+        });
+       
+        getContentPane().add(title, BorderLayout.NORTH);
+        getContentPane().add(formpanel, BorderLayout.CENTER);
+        getContentPane().add(bp, BorderLayout.SOUTH);
+        pack();
+        setResizable(true);
+        setLocationRelativeTo(parent1);
+        
+     } 
 }//End of Class()
 

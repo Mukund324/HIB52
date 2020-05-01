@@ -92,7 +92,7 @@ public class MainMenuHelper extends JDialog
     	scardpanel1.add(scpPart, BorderLayout.LINE_END);  
 
  
-    	//Dummy dashboard values to avoid fetch during testing.....
+    	/*Dummy dashboard values to avoid fetch during testing.....
 
     	countProducts=2;
     	countVendors=3;
@@ -101,9 +101,9 @@ public class MainMenuHelper extends JDialog
     	countProdCycles=6;
     	countOrders=7;
     	countBoms=8;
+		*/
 
-
- 	   	/*
+ 	   	
     	 { 
         	List<ProductModel> Products;
         	List<VendorModel> Vendors;
@@ -144,7 +144,7 @@ public class MainMenuHelper extends JDialog
             ProdCycleTableModel model6 = new ProdCycleTableModel(ProdCycles);
             countProdCycles = model6.getRowCount();
     	}  
-    	 */   	
+    	 	
 
     	JLabel sclProduct = new JLabel("Products");
     	sclProduct.setHorizontalAlignment(SwingConstants.CENTER);
@@ -287,16 +287,15 @@ public class MainMenuHelper extends JDialog
         v.add(v1); v.add(v2); v.add(v3); v.add(v4);v.add(v5);v.add(v6);      
         y = new JMenu("PLAN"); p1 = new JMenuItem("BILL OF MATERIALS");p2 = new JMenuItem("SUPPLY OF MATERIALS");p3 = new JMenuItem("PRODUCTION BATCH");
         y.add(p1); y.add(p2); y.add(p3);     
-        z = new JMenu("MANAGE"); m1 = new JMenuItem("VENDOR"); m2 = new JMenuItem("PRODUCT"); m3 = new JMenuItem("PART");
-        m1.setEnabled(true);m2.setEnabled(true);m3.setEnabled(false);
-        z.add(m1); z.add(m2); z.add(m3);
-        e = new JMenu("GENERATE");r1 = new JMenuItem("ORDER LIST"); r2 = new JMenuItem("PURCHASE ORDERS");//r3 = new JMenuItem("PRINT INVOICE");
-        r2.setEnabled(false);
-        e.add(r1); e.add(r2); //e.add(r3);
-        f = new JMenu("ABOUT"); a1 = new JMenuItem("ABOUT SOFTWARE"); a2 = new JMenuItem("ABOUT DEVELOPER"); a3 = new JMenuItem("ABOUT COMPANY");
-        //a1.setEnabled(false);
-        a2.setEnabled(false);a3.setEnabled(false);
-        f.add(a1); f.add(a2); f.add(a3);
+        z = new JMenu("MANAGE"); m1 = new JMenuItem("VENDOR"); m2 = new JMenuItem("PRODUCT"); 
+        m1.setEnabled(true);m2.setEnabled(true);
+        z.add(m1); z.add(m2); 
+        e = new JMenu("GENERATE");r1 = new JMenuItem("ORDER LIST"); //r2 = new JMenuItem("PURCHASE ORDERS");//r3 = new JMenuItem("PRINT INVOICE");
+        //r2.setEnabled(false);
+        e.add(r1); //e.add(r2); //e.add(r3);
+        f = new JMenu("ABOUT"); a1 = new JMenuItem("ABOUT SOFTWARE"); a2 = new JMenuItem("ABOUT DEVELOPER");//a3 = new JMenuItem("ABOUT COMPANY");
+        a1.setEnabled(true);a2.setEnabled(true);//a3.setEnabled(false);
+        f.add(a1); f.add(a2); //f.add(a3);
         
         //Add the Menus to the menubar 
         menu.add(x); menu.add(v); menu.add(y); menu.add(z); menu.add(e); menu.add(f); 
@@ -501,7 +500,20 @@ public class MainMenuHelper extends JDialog
             	 System.out.println("You have chosen About->Software !!!");
              	 dispose();
             	 AboutUI abframe=new AboutUI(parent1);
-             	 abframe.AboutAddUI();
+             	 abframe.AboutAddProjectUI();
+            	 abframe.setVisible(true);            	
+            }
+        }); //End of Generate->Order List
+        
+        
+        a2.addActionListener(new ActionListener() 
+        {     	 
+            public void actionPerformed(ActionEvent e) 
+            {
+            	 System.out.println("You have chosen About->Software !!!");
+             	 dispose();
+            	 AboutUI abframe=new AboutUI(parent1);
+             	 abframe.AboutAddDevUI();
             	 abframe.setVisible(true);            	
             }
         }); //End of Generate->Order List
